@@ -19,7 +19,7 @@ function Dashboard({ navigation }): React.JSX.Element {
                 <ScrollView>
                     <View>
                         <View style={[{}, marginBottom1]}>
-                            <Text style={[{}, header, SemiBold, { color: secondryColor }]}>Hello Sandeep Singh</Text>
+                            <Text style={[{}, header, SemiBold, { color: '#000' }]}>Hello Sandeep Singh</Text>
                             {/* <Text style={[{}, smallHeader, SemiBold, { color: secondryColor }]}>Hello</Text>  */}
                         </View>
 

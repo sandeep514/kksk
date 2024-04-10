@@ -7,6 +7,7 @@ import {
     paddingHorizontal5,
     primaryBackgroundColor,
     primaryColor,
+    secondryColor,
 } from '../../res/assets/css/style';
 import InputComponent from '../components/InputComponent/Index';
 import ButtonComponent from '../components/ButtonComponent/Index';
@@ -16,7 +17,7 @@ function Login(): React.JSX.Element {
     return (
         <SafeAreaView style={[{}]}>
             <StatusBar
-                backgroundColor={primaryColor}
+                backgroundColor={secondryColor}
             />
             <View style={[{}, height100, primaryBackgroundColor]}>
                 <KeyboardAvoidingView behavior={'padding'} style={{ flex: 1 }}>
@@ -35,7 +36,7 @@ function Login(): React.JSX.Element {
                                             <InputComponent placeholder={'Password'} onChange={(event) => { console.log(event) }} />
                                         </View>
                                         <View>
-                                            <ButtonComponent />
+                                            <ButtonComponent title={'Submit'} onClick={(value) => { console.log(value)  }} />
                                         </View>
 
                                     </View>

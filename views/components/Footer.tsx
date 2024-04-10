@@ -26,9 +26,9 @@ function Footer(): React.JSX.Element {
                     <Icon name="home" size={responsiveScreenHeight(3)} />
                     <Text style={[{ color: secondryColor }, h4]}>Home</Text>
                 </Pressable>
-                <Pressable onPress={() => { navigation.navigate('Dashboard') }} style={[{}, padding1]}>
-                    <Icon name="home" size={responsiveScreenHeight(3)} />
-                    <Text style={[{ color: secondryColor }, h4]}>Home</Text>
+                <Pressable onPress={() => { navigation.navigate('Profile') }} style={[{}, padding1]}>
+                    <Icon name="user" type='font-awesome' size={responsiveScreenHeight(3)} />
+                    <Text style={[{ color: secondryColor }, h4]}>Profile</Text>
                 </Pressable>
                 <Pressable onPress={() => { navigation.openDrawer() }} style={[{}, padding1]}>
                     <Icon name="menu" size={responsiveScreenHeight(3)} />

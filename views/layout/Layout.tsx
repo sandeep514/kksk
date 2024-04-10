@@ -16,16 +16,16 @@ function Layout({ children }): React.JSX.Element {
     return (
         <SafeAreaView style={{}}>
             <StatusBar
-                backgroundColor={primaryColor}
+                backgroundColor={secondryColor}
             />
             <View style={{}}>
                 {/* header */}
-                <View style={[{ justifyContent: 'center' }, height8, { backgroundColor: '#fff' }]}>
+                <View style={[{ justifyContent: 'center' }, height8, { backgroundColor: primaryColor }]}>
                     <Header />
                 </View>
 
                 {/* body */}
-                <View style={[{}, height84, paddingHorizontal3, { backgroundColor: '#fff' }]}>
+                <View style={[{}, height84, paddingHorizontal3, { backgroundColor: primaryColor }]}>
                     <KeyboardAvoidingView behavior={'padding'} style={{ flex: 1 }}>
                         <View style={[marginBottom1, { flex: 1 }]} >
 

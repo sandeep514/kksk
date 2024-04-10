@@ -25,14 +25,20 @@ function Header(): React.JSX.Element {
             <View style={[{ borderRadius: 10, flexDirection: 'row', justifyContent: 'space-between' }, padding1]}>
                 <View>
                     <Pressable onPress={() => { navigation.goBack() }} style={{padding:10}}>
-                        <Icon name="chevron-left" color={secondryColor} />
+                        <Icon name="chevron-left" color={'#000'} size={30} />
                     </Pressable>
                 </View>
                 <View style={{ justifyContent: 'center', alignContent: 'center' }}>
-                    <Text style={[h2, Bold, { color: secondryColor }]}>{currentRoute}</Text>
+                    <Text style={[h2, Bold, { color: '#000' }]}>{currentRoute}</Text>
                 </View>
-                <View style={{ padding: 10 }}>
-                    <Icon name="notifications" color={secondryColor} />
+                <View style={{ padding: 10, }}>
+                    
+                    <Pressable onPress={() => { navigation.navigate('Notification') }} style={{  }}>
+                        <Icon name="notifications" color={'#000'} size={30} />
+                        <View style={{ position: 'absolute',right: 0}}>
+                            <View style={{ width: 5, height: 5, backgroundColor: 'red', borderRadius: 100 }}></View>
+                        </View>
+                    </Pressable>
                 </View>
             </View>
 

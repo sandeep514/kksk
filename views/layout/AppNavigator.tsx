@@ -31,6 +31,9 @@ import PriceEnquiry from '../PriceEnquiry/Index';
 import RequestSample from '../RequestSample/Index';
 import RequestSampleView from '../RequestSample/View';
 import ListRequestSample from '../RequestSample/List';
+import Profile from '../Profile/Profile';
+import Notification from '../Notification/Notification';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -78,6 +81,9 @@ function AppNavigator(): React.JSX.Element {
             <Stack.Screen name="RequestSample" component={RequestSample} />
             <Stack.Screen name="RequestSampleView" component={RequestSampleView} />
             <Stack.Screen name="ListRequestSample" component={ListRequestSample} />
+
+            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="Notification" component={Notification} />
         </Stack.Navigator>
     );
 }

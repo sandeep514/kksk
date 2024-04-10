@@ -47,7 +47,7 @@ function FinishedGoodProcustionSheet(): React.JSX.Element {
                             <InputComponent placeholder={'Amount'} onChange={(value) => { console.log(value) }} />
 
 
-                            <ButtonComponent />
+                            <ButtonComponent title={'Submit'} onClick={(value) => { console.log(value)  }} />
 
                         </ScrollView>
                     </View>

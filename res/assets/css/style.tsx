@@ -1,8 +1,8 @@
 import { responsiveFontSize, responsiveHeight, responsiveScreenHeight, responsiveWidth } from "react-native-responsive-dimensions"
 
 
-export const primaryBackgroundColor = { backgroundColor: '#fff' }
-export const primaryColor = '#fff';
+export const primaryBackgroundColor = { backgroundColor: '#f6f6f6' }
+export const primaryColor = '#f6f6f6';
 export const primaryButton = { backgroundColor: primaryColor, paddingHorizontal: 20, paddingVertical: 8, borderRadius: 100 };
 
 
@@ -1657,7 +1657,7 @@ export const paddingVertical100 = { paddingVertical: responsiveHeight(100) }
 
 
 
-export const secondryBackgroundColor = { backgroundColor: '#2e2e2e' }
-export const secondryColor = '#2e2e2e';
+export const secondryBackgroundColor = { backgroundColor: '#c89e85' }
+export const secondryColor = '#c89e85';
 export const secondryButton = [{ backgroundColor: secondryColor, paddingHorizontal: 20, borderRadius: 5, width: 'auto' }, paddingVertical2];
 
