@@ -33,10 +33,9 @@ function Header(): React.JSX.Element {
                 </View>
                 <View style={{ padding: 10, }}>
                     
-                    <Pressable onPress={() => { navigation.navigate('Notification') }} style={{  }}>
+                    <Pressable onPress={() => { navigation.navigate('Notification') }} >
                         <Icon name="notifications" color={'#000'} size={30} />
-                        <View style={{ position: 'absolute',right: 0}}>
-                            <View style={{ width: 5, height: 5, backgroundColor: 'red', borderRadius: 100 }}></View>
+                        <View style={{ borderBottomColor: secondryColor, borderBottomWidth: 3, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}>
                         </View>
                     </Pressable>
                 </View>

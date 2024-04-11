@@ -19,7 +19,7 @@ function Dashboard({ navigation }): React.JSX.Element {
                 <ScrollView>
                     <View>
                         <View style={[{}, marginBottom1]}>
-                            <Text style={[{}, header, SemiBold, { color: '#000' }]}>Hello Sandeep Singh</Text>
+                            {/* <Text style={[{}, header, SemiBold, { color: '#000' }]}>Hello Sandeep Singh</Text> */}
                             {/* <Text style={[{}, smallHeader, SemiBold, { color: secondryColor }]}>Hello</Text>  */}
                         </View>
 
@@ -29,6 +29,11 @@ function Dashboard({ navigation }): React.JSX.Element {
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                         <Pressable onPress={() => { navigation.navigate('ListPriceEnquiries') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
                                             <Text style={[{ color: '#fff' }, h3, SemiBold]}>List Price Enquiries</Text>
+                                        </Pressable>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <Pressable onPress={() => { navigation.navigate('ListQuality') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
+                                            <Text style={[{ color: '#fff' }, h3, SemiBold]}>List Quality</Text>
                                         </Pressable>
                                     </View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

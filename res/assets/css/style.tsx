@@ -7,26 +7,26 @@ export const primaryButton = { backgroundColor: primaryColor, paddingHorizontal:
 
 
 
-export const h1 = { fontSize: responsiveFontSize(2.5) }
-export const h2 = { fontSize: responsiveFontSize(2.2) }
-export const h3 = { fontSize: responsiveFontSize(1.8) }
-export const h4 = { fontSize: responsiveFontSize(1.4) }
-export const h5 = { fontSize: responsiveFontSize(1) }
-export const h6 = { fontSize: responsiveFontSize(0.8) }
+export const h1 = { fontSize: responsiveFontSize(2.6 ) }
+export const h2 = { fontSize: responsiveFontSize(2.4 ) }
+export const h3 = { fontSize: responsiveFontSize(2.0 ) }
+export const h4 = { fontSize: responsiveFontSize(1.6 ) }
+export const h5 = { fontSize: responsiveFontSize(1.2 ) }
+export const h6 = { fontSize: responsiveFontSize(1.0 ) }
 
 
-export const mainHeader = { fontSize: responsiveFontSize(3), fontFamily: 'Jost-Bold' }
-export const header = { fontSize: responsiveFontSize(2.8), fontFamily: 'Jost-Bold' }
-export const smallHeader = { fontSize: responsiveFontSize(2.4), fontFamily: 'Jost-SemiBold' }
-export const mainTitle = { fontSize: responsiveFontSize(1.8), fontFamily: 'Jost-SemiBold' }
-export const title = { fontSize: responsiveFontSize(1.4), fontFamily: 'Jost-Regular' }
-export const smallTitle = { fontSize: responsiveFontSize(1), fontFamily: 'Jost-Regular' }
-export const p = { fontSize: responsiveFontSize(0.8), fontFamily: 'Jost-Regular' }
+export const mainHeader = { fontSize: responsiveFontSize(3.2 ), fontFamily: 'Roboto-Bold' }
+export const header = { fontSize: responsiveFontSize(3.1 ), fontFamily: 'Roboto-Bold' }
+export const smallHeader = { fontSize: responsiveFontSize(2.7 ), fontFamily: 'Roboto-Medium' }
+export const mainTitle = { fontSize: responsiveFontSize(2.1 ), fontFamily: 'Roboto-Medium' }
+export const title = { fontSize: responsiveFontSize(1.7 ), fontFamily: 'Roboto-Regular' }
+export const smallTitle = { fontSize: responsiveFontSize(1.3 ), fontFamily: 'Roboto-Regular' }
+export const p = { fontSize: responsiveFontSize(1.1 ), fontFamily: 'Roboto-Regular' }
 
-export const Bold = { fontFamily: 'Jost-Bold' }
-export const SemiBold = { fontFamily: 'Jost-SemiBold' }
-export const Regular = { fontFamily: 'Jost-Regular' }
-export const Medium = { fontFamily: 'Jost-Medium' }
+export const Bold = { fontFamily: 'Roboto-Bold' }
+export const SemiBold = { fontFamily: 'Roboto-Medium' }
+export const Regular = { fontFamily: 'Roboto-Regular' }
+export const Medium = { fontFamily: 'Roboto-Medium' }
 
 
 export const height1 = { height: responsiveHeight(1) }
