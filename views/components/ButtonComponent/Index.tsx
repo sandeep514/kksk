@@ -8,7 +8,7 @@ function ButtonComponent({title , onClick}): React.JSX.Element {
     const navigation = useNavigation();
     return (
         <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
-            <Pressable onPress={() => { navigation.navigate('Dashboard') }} style={[{}, secondryButton, paddingHorizontal15]}>
+            <Pressable onPress={() => { onClick() }} style={[{}, secondryButton, paddingHorizontal15]}>
                 <Text style={[{ color: primaryColor }, h3, Bold, { color: '#fff' }]}>{title}</Text>
             </Pressable>
         </View>

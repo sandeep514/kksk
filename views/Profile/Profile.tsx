@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, KeyboardAvoidingView, SafeAreaView, ScrollView, StatusBar, View } from 'react-native';
 
 import {
@@ -11,9 +11,33 @@ import {
 import InputComponent from '../components/InputComponent/Index';
 import ButtonComponent from '../components/ButtonComponent/Index';
 import Layout from '../layout/Layout';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ShowToast, post } from '../components/apiComponent';
 
 function Profile(): React.JSX.Element {
+    const [userData, setUserData] = useState({});
+    const [loader , setLoader] = useState(false)
+    useEffect(() => {
+        AsyncStorage.getItem('userDetails').then((userData) => {
+            console.log('rest')
+            console.log(JSON.parse(userData))
+            setUserData(JSON.parse(userData))
+        })
+    }, [])
+    
+    const updateProfileDetails = () => {
+        setLoader(true)
 
+        post('update/user/profile', userData).then((res) => {
+            AsyncStorage.setItem('userDetails' , JSON.stringify(res.data.data))
+            console.log(res)
+            ShowToast(res.data.message)
+        }).catch((err) => {
+
+        }).finally(() => {
+            setLoader(false)
+        })
+    }
     return (
         <Layout >
             <View style={[{ justifyContent: 'center',flex: 1 }]}>
@@ -23,22 +47,32 @@ function Profile(): React.JSX.Element {
                     </View> */}
                     <View style={[{}, paddingHorizontal5]}>
                         <View>
-                            <InputComponent placeholder={'Name'} onChange={(event) => { console.log(event) }} />
+                            <InputComponent value={userData?.name} editable={false} placeholder={'Name'} onChange={(event) => { setUserData((preState) => (
+                                {...preState , 'name': event}
+                            )) }} />
                         </View>
                         <View>
-                            <InputComponent placeholder={'Mobile'} onChange={(event) => { console.log(event) }} />
+                            <InputComponent value={userData?.phone} placeholder={'Mobile'} onChange={(event) => { setUserData((preState) => (
+                                {...preState , 'phone': event}
+                            )) }} />
                         </View>
                         <View>
-                            <InputComponent placeholder={'Business Name'} onChange={(event) => { console.log(event) }} />
+                            <InputComponent value={userData?.companyname} placeholder={'Business Name'} onChange={(event) => { setUserData((preState) => (
+                                {...preState , 'companyname': event}
+                            )) }} />
                         </View>
                         <View>
-                            <InputComponent placeholder={'Business Email'} onChange={(event) => { console.log(event) }} />
+                            <InputComponent value={userData?.email} editable={false} placeholder={'Business Email'} onChange={(event) => { setUserData((preState) => (
+                                {...preState , 'email': event}
+                            )) }} />
                         </View>
                         <View>
-                            <InputComponent placeholder={'Password'} onChange={(event) => { console.log(event) }} />
+                            <InputComponent placeholder={'Password'} onChange={(event) => { setUserData((preState) => (
+                                { ...preState, 'password' : event}
+                            )) }} />
                         </View>
                         <View>
-                            <ButtonComponent title={'Submit'} onClick={(value) => { console.log(value)  }} />
+                            <ButtonComponent title={'Submit'} onClick={(value) => { updateProfileDetails() }} />
                         </View>
 
                     </View>

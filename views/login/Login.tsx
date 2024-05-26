@@ -1,19 +1,47 @@
-import React from 'react';
-import { Image, KeyboardAvoidingView, SafeAreaView, ScrollView, StatusBar, View } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Image, KeyboardAvoidingView, SafeAreaView, ScrollView, StatusBar, View } from 'react-native';
 
 import {
     height100,
     height2,
     paddingHorizontal5,
+    paddingVertical2,
     primaryBackgroundColor,
     primaryColor,
     secondryColor,
 } from '../../res/assets/css/style';
 import InputComponent from '../components/InputComponent/Index';
 import ButtonComponent from '../components/ButtonComponent/Index';
+import { ShowToast, post } from '../components/apiComponent';
+import { Text } from '@rneui/base';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function Login(): React.JSX.Element {
+function Login({ navigation }): React.JSX.Element {
+    const [postedData, setPostedData] = useState({});
+    const [showError, setShowError] = useState('');
+    const [showLoader, setShowLoader] = useState(false);
 
+    const saveLogin = () => {
+        setShowError('')
+        setShowLoader(true)
+        if (postedData.email && postedData.password) {
+            post('login', postedData).then((res) => {
+                console.log(res.data.user)
+                AsyncStorage.setItem('userDetails', JSON.stringify(res.data.user));
+                ShowToast('Login success')
+                navigation.navigate('Dashboard')
+            }).catch((err) => {
+
+            }).finally(() => {
+                setShowLoader(false)
+            })
+        } else {
+            ShowToast('Required fields are missing')
+            setShowError('Required fields are missing');
+            setShowLoader(false)
+
+        }
+    }
     return (
         <SafeAreaView style={[{}]}>
             <StatusBar
@@ -30,13 +58,29 @@ function Login(): React.JSX.Element {
                                     </View> */}
                                     <View style={[{}, paddingHorizontal5]}>
                                         <View>
-                                            <InputComponent placeholder={'Email'} onChange={(event) => { console.log(event) }} />
+                                            <InputComponent placeholder={'Email'} onChange={(event) => { setPostedData((prevState) => (
+                                                { ...prevState , email : event }
+                                            )) }} />
                                         </View>
                                         <View>
-                                            <InputComponent placeholder={'Password'} onChange={(event) => { console.log(event) }} />
+                                            <InputComponent placeholder={'Password'} onChange={(event) => { setPostedData((prevState) => (
+                                                { ...prevState , password : event }
+                                            )) }} />
                                         </View>
                                         <View>
-                                            <ButtonComponent title={'Submit'} onClick={(value) => { console.log(value)  }} />
+                                            <Text style={[{color: 'red',textAlign: 'center'},paddingVertical2]}>{showError}</Text>
+                                        </View>
+                                        <View>
+                                            {(showLoader) ?
+                                                <View>
+                                                    <View>
+                                                        <ActivityIndicator />
+                                                    </View>
+                                                </View>
+                                                :
+                                                <ButtonComponent title={'Submit'} onClick={() => { saveLogin() }} />
+                                            }
+                                            
                                         </View>
 
                                     </View>

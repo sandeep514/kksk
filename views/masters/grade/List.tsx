@@ -31,16 +31,14 @@ function ListGrade({ navigation }): React.JSX.Element {
         getQualityMasterList();
     }, []));
 
-    const [basmati, setBasmati] = useState([]);
-    const [nonBasmati, setNonBasmati] = useState([]);
-    const [selectedTab, setSelectedTab] = useState('basmati');
+    const [data, setdata] = useState();
     const [loader, setLoader] = useState(false);
 
     const getQualityMasterList = () => {
         setLoader(true)
-        get('list/qualities').then((res) => {
-            setBasmati(res.data.data['basmati'])
-            setNonBasmati(res.data.data['nonBasmati'])
+        get('get/all/wand').then((res) => {
+            console.log(res.data.data)
+            setdata(res.data.data)
         }).catch((err) => {
 
         }).finally(() => {
@@ -49,7 +47,7 @@ function ListGrade({ navigation }): React.JSX.Element {
     }
     const Item = ({ item }: ItemProps) => (
         <Pressable onPress={() => { navigation.navigate('PurchaseOrderView', { details: item }) }} style={[styles.item, { borderRadius: 10, borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingHorizontal5, paddingVertical1]}>
-            <Text style={[styles.title, h3, SemiBold]}>{item.name}</Text>
+            <Text style={[styles.title, h3, SemiBold]}>{item.type}</Text>
         </Pressable>
     );
     return (
@@ -68,7 +66,7 @@ function ListGrade({ navigation }): React.JSX.Element {
                                     null}
 
                                 <FlatList
-                                    data={basmati}
+                                    data={data}
                                     renderItem={({ item }) => <Item item={item} />}
                                     keyExtractor={item => item.id}
                                 />

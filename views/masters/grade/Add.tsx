@@ -12,33 +12,28 @@ import InputComponent from '../../components/InputComponent/Index';
 
 function AddGrade({ navigation }): React.JSX.Element {
 
-
-
-
-
-    const [riceType, setRiceType] = useState('basmati');
-    const [quality, setQuality] = useState('');
+    const [wand, setWand] = useState('');
     const [error, setError] = useState('');
     const [loader, setLoader] = useState(false);
 
 
     const submitPurchaseOrder = () => {
         setError('');
-        if (quality.length > 0) {
+        if (wand.length > 0) {
             setLoader(true)
             let postedData = {
-                'riceType': riceType, 'quality': quality
+                'type': wand
             };
 
             // POST Method
-            post('create/qualities', (postedData)).then((res) => {
-                console.log('res')
+            post('create/wand', (postedData)).then((res) => {
+                console.log('resres')
                 console.log(res)
                 if (res.data.status == 'error') {
                     setError(res.data.message)
                 } else {
-                    ShowToast("Quality added successfully");
-                    navigation.navigate('ListQuality');
+                    ShowToast("wand added successfully");
+                    // navigation.navigate('Listwand');
                 }
 
             }).catch((err) => {
@@ -63,7 +58,7 @@ function AddGrade({ navigation }): React.JSX.Element {
                                 setRiceType(event.name)
                             }} /> */}
 
-                            <InputComponent placeholder={'Grade'} onChange={(value) => { setQuality(value) }} />
+                            <InputComponent placeholder={'Grade'} onChange={(value) => { setWand(value) }} />
 
                             {(error.length > 0) ?
                                 <View>

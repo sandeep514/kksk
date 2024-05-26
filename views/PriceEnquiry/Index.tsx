@@ -7,93 +7,116 @@ import InputComponent from '../components/InputComponent/Index';
 import ButtonComponent from '../components/ButtonComponent/Index';
 import { Bold, h3, padding1, paddingBottom1, paddingHorizontal15, primaryColor, secondryBackgroundColor, secondryButton } from '../../res/assets/css/style';
 import { Text } from '@rneui/base';
-import PriceEnquiryComponent from './component/PriceEnquiryComponent';
+import RequestSampleComponent from './component/RequestSampleComponent';
 import { ShowToast, get, post } from '../components/apiComponent';
 import { ActivityIndicator } from 'react-native';
 
-function PriceEnquiry({navigation}): React.JSX.Element {
-
-
-
-    const [formComponentCount, setFormComponentCount] = useState([{}]);
-    const [PartyList, setPartiesList] = useState([]);
-
+function RequestSample({ navigation }): React.JSX.Element {
+    const [formComponentCount, setFormComponentCount] = useState([]);
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState('');
 
-    const [Order, setOrder] = useState("");
-    const [Party, setParty] = useState('');
-    const [Address, setAddress] = useState("");
-    const [Mobile, setMobile] = useState("");
-    const [GSTIN, setGSTIN] = useState("");
     const [additionalInfo, setAdditionalInfo] = useState("");
+    const [riceName, setRiceName] = useState([]);
+    const [riceForm, setriceForm] = useState([]);
+    const [riceMisc, setRiceMisc] = useState([]);
+    const [data, setData] = useState();
+
 
     useEffect(() => {
-        getPartyName()
+        getRiceName()
+        getMiscData()
+
     }, [])
 
-    const getPartyName = () => {
-        get('get/party/name').then((res) => {
-            setPartiesList(res.data.parties);
-        }).catch((err) => {
 
+
+    const getRiceName = () => {
+        //get/rice/name
+
+        get('get/rice/name').then((res) => {
+            setRiceName(res.data.riceName)
+            setriceForm(res.data.riceForm)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+    const getMiscData = () => {
+        //get/packing/data
+
+        get('get/misc/data').then((res) => {
+            setRiceMisc(res.data.misc)
+        }).catch((err) => {
+            console.log(err)
         })
     }
 
-    const updateFormData = (myKey, data) => {
-        formComponentCount[myKey] = data;
-        setFormComponentCount(formComponentCount);
-    }
 
-    const submitPurchaseOrder = () => {
-        checkIfValidation().then((res) => {
+    const submitPriceEnquiry = () => {
+        setError('')
+
+        if (Object.keys(data).length == 5) {
             setLoader(true)
-            let postedData = {
-                'Party': Party, 'Address': Address, 'Mobile': Mobile, 'GSTIN': GSTIN, 'additionalInfo': additionalInfo, formData: formComponentCount
-            };
-
             // POST Method
-            post('save/purchase/order', (postedData)).then((res) => {
-                ShowToast('PO generated successfully')
-                navigation.navigate('ListPurchase');
+            data['additionalInfo'] = additionalInfo;
+            console.log('data')
+            console.log(data)
+            post('add/price/enquiry', (data)).then((res) => {
+                console.log('port res');
+                console.log(res)
+                ShowToast('sample requested successfully')
+                // navigation.navigate('ListPurchase');
             }).catch((err) => {
                 setError('Something went wrong')
             }).finally(() => {
                 setLoader(false)
             })
-        }).catch((err) => {
-            setError("Required field are missing.")
-            setLoader(false)
-        })
-    }
-    
-    const checkIfValidation = () => {
-        return new Promise((resolve, reject) => {
-            let parentObject = Object.keys(formComponentCount).length
+        } else {
+            setError('required fields are missing')
+        }
 
-            for (let i = 0; i < formComponentCount.length; i++) {
-                let lengthOfObject = Object.values(formComponentCount[i]).length
-                if (lengthOfObject < 9) {
-                    // require fields are missing
-                    reject(false);
-                } else {
-                    if (i == (parentObject - 1)) {
-                        resolve(true)
-                    }
-                }
-            }
-        })
-    }
 
+    }
     return (
         <Layout >
             <View>
                 <View>
                     <ScrollView>
-                        <View key={Math.floor(Math.random() * 100)}>
-                            <PriceEnquiryComponent defaultValue={formComponentCount} setFormData={(data) => { updateFormData(data) }} />
+                        <View style={{ marginBottom: 0, }}>
+                            <View style={[{}]}>
+                                <DropdownComponent defaultValue={data?.riceType?.name} items={[{ 'id': 0, 'name': 'Select any' }, { 'id': 1, 'name': 'basmati' }, { 'id': 2, 'name': 'non-basmati' }]} placeholder={'Rice Type'} listname={'name'} selectedItem={(event, index) => {
+                                    setData((previousState) => (
+                                        { ...previousState, riceType: event }
+                                    ))
+                                }} />
+
+                                <DropdownComponent defaultValue={data?.riceName?.name} items={riceName[data?.riceType?.name]} placeholder={'Quality Name'} listname={'name'} selectedItem={(event, index) => {
+                                    setData((previousState) => (
+                                        { ...previousState, riceName: event }
+                                    ))
+                                }} />
+
+                                <DropdownComponent defaultValue={data?.riceForm?.form_name} items={(data?.riceType) ? riceForm[data?.riceType?.name] : {}} placeholder={'Sub Quality Name'} listname={'form_name'} selectedItem={(event, index) => {
+                                    setData((previousState) => (
+                                        { ...previousState, riceForm: event }
+                                    ))
+                                }} />
+
+
+                                <DropdownComponent defaultValue={data?.misc?.misc} items={riceMisc} placeholder={'Misc'} listname={'misc'} selectedItem={(event, index) => {
+                                    setData((previousState) => (
+                                        { ...previousState, misc: event }
+                                    ))
+                                }} />
+
+                                <InputComponent keyboardType={'numeric'} value={data?.quantity} placeholder={'Estimate Quantity'} onChange={(event) => {
+                                    setData((previousState) => (
+                                        { ...previousState, quantity: event }
+                                    ))
+                                }} />
+                            </View>
                         </View>
-                          
+
                         <InputComponent placeholder={'Remarks'} onChange={(value) => { setAdditionalInfo(value) }} />
                         {(error.length > 0) ?
                             <View>
@@ -103,10 +126,10 @@ function PriceEnquiry({navigation}): React.JSX.Element {
                         }
 
                         <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
-                            
+
 
                             {(!loader) ?
-                                <Pressable onPress={() => { submitPurchaseOrder() }} style={[{}, secondryButton, paddingHorizontal15]}>
+                                <Pressable onPress={() => { submitPriceEnquiry() }} style={[{}, secondryButton, paddingHorizontal15]}>
                                     <Text style={[{ color: primaryColor }, h3, Bold]}>Submit</Text>
                                 </Pressable>
                                 :
@@ -123,4 +146,4 @@ function PriceEnquiry({navigation}): React.JSX.Element {
     );
 }
 
-export default PriceEnquiry;
+export default RequestSample;

@@ -2,16 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import Layout from '../layout/Layout';
-import { Regular, SemiBold, h1, h2, h3, h4, h5, header, height1, height80, mainHeader, marginBottom1, marginBottom2, marginLeft2, paddingHorizontal2, paddingHorizontal5, paddingVertical2, paddingVertical3, paddingVertical5, primaryColor, secondryColor, smallHeader, width100, width40, width43, width45, width95 } from '../../res/assets/css/style';
+import {
+    SemiBold,
+    h3,
+    marginBottom1,
+    marginBottom2,
+    paddingVertical2,
+    secondryColor,
+} from '../../res/assets/css/style';
 import { ScrollView } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Dashboard({ navigation }): React.JSX.Element {
-
-
+    const [userDetails, setUserDetails] = useState();
     useEffect(() => {
-        // ShowToast("hello");
+        AsyncStorage.getItem('userDetails').then((userData) => {
+            setUserDetails(JSON.parse(userData))
+            console.log(JSON.parse(userData).role)
+        }).catch((err) => {
+
+        })
     }, [])
 
+    const adminRoutes = [{ 'title': 'List Sample From Admin', 'route': 'ListSampleFromAdmin' }, { 'title': 'List Quality', 'route': 'ListQuality' },
+        { 'title': 'ListSubQuality', 'route': 'ListSubQuality' },
+        { 'title': 'ListUser', 'route': 'ListUser' },
+        { 'title': 'ListMisc', 'route': 'ListMisc' }];
+
+    const brokerRoutes = [{ 'title': 'ListPriceEnquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'List Sample From Admin', 'route': 'ListSampleFromAdmin' },{ 'title': 'ListRequestSample', 'route': 'ListRequestSample' }];
+    
+    
+    
+    
 
     return (
         <Layout >
@@ -22,8 +44,29 @@ function Dashboard({ navigation }): React.JSX.Element {
                             {/* <Text style={[{}, header, SemiBold, { color: '#000' }]}>Hello Sandeep Singh</Text> */}
                             {/* <Text style={[{}, smallHeader, SemiBold, { color: secondryColor }]}>Hello</Text>  */}
                         </View>
-
-                        <View>
+                        {(userDetails?.role == 2) ?
+                            Object.values(adminRoutes).map(function (value, index) {
+                                return ( <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Pressable onPress={() => { navigation.navigate(value.route) }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
+                                        <Text style={[{ color: '#fff' }, h3, SemiBold]}>{value.title}</Text>
+                                    </Pressable>
+                                </View>)
+                            })
+                            :
+                            null
+                        }
+                        {(userDetails?.role == 7) ?
+                            Object.values(brokerRoutes).map(function (value, index) {
+                                return ( <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Pressable onPress={() => { navigation.navigate(value.route) }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
+                                        <Text style={[{ color: '#fff' }, h3, SemiBold]}>{value.title}</Text>
+                                    </Pressable>
+                                </View>)
+                            })
+                            :
+                            null
+                        }
+                        {/* <View>
                             <View style={{}}>
                                 <View style={[{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }]}>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -51,12 +94,6 @@ function Dashboard({ navigation }): React.JSX.Element {
                                             <Text style={[{ color: '#fff' }, h3, SemiBold]}>Misc</Text>
                                         </Pressable>
                                     </View>
-
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <Pressable onPress={() => { navigation.navigate('ListGrade') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4, width: '100%' }, marginBottom2, paddingVertical2]}>
-                                            <Text style={[{ color: '#fff' }, h3, SemiBold]}>Grade</Text>
-                                        </Pressable>
-                                    </View>
                                     
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                         <Pressable onPress={() => { navigation.navigate('ListPriceEnquiry') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4, width: '100%' }, marginBottom2, paddingVertical2]}>
@@ -69,36 +106,17 @@ function Dashboard({ navigation }): React.JSX.Element {
                                             <Text style={[{ color: '#fff' }, h3, SemiBold]}>Request for sample</Text>
                                         </Pressable>
                                     </View>
-                                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <Pressable onPress={() => { navigation.navigate('ListSampleLabReport') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
-                                            <Text style={[{ color: '#fff' }, h3, SemiBold]}>Sample Lab Report</Text>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <Pressable onPress={() => { navigation.navigate('ListSampleFromAdmin') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4, width: '100%' }, marginBottom2, paddingVertical2]}>
+                                            <Text style={[{ color: '#fff' }, h3, SemiBold]}>Sample from admin</Text>
                                         </Pressable>
                                     </View>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <Pressable onPress={() => { navigation.navigate('ListLoadingOrder') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
-                                            <Text style={[{ color: '#fff' }, h3, SemiBold]}>Loading Detail</Text>
-                                        </Pressable>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <Pressable onPress={() => { navigation.navigate('ListGatePassEntry') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
-                                            <Text style={[{ color: '#fff' }, h3, SemiBold]}>Gate Pass Entry</Text>
-                                        </Pressable>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <Pressable onPress={() => { navigation.navigate('ListAnalysisReportLabIncharge') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
-                                            <Text style={[{ color: '#fff' }, h3, SemiBold]}>Lab Analysis Report</Text>
-                                        </Pressable>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <Pressable onPress={() => { navigation.navigate('ListKandaParchi') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
-                                            <Text style={[{ color: '#fff' }, h3, SemiBold]}>Kanda Parchi</Text>
-                                        </Pressable>
-                                    </View> */}
+                              
 
                                 </View>
 
                             </View>
-                        </View>
+                        </View> */}
                     </View>
                 </ScrollView>
             </View>

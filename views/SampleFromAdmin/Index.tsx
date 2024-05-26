@@ -11,7 +11,7 @@ import RequestSampleComponent from './component/RequestSampleComponent';
 import { ShowToast, get, post } from '../components/apiComponent';
 import { ActivityIndicator } from 'react-native';
 
-function RequestSample({navigation}): React.JSX.Element {
+function SampleFromAdmin({navigation}): React.JSX.Element {
     const [formComponentCount, setFormComponentCount] = useState([]);
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState('');
@@ -21,16 +21,15 @@ function RequestSample({navigation}): React.JSX.Element {
     const [riceForm, setriceForm] = useState([]);
     const [riceMisc, setRiceMisc] = useState([]);
     const [data, setData] = useState();
-
+    const [PartyList, setPartiesList] = useState([]);
+    const [Party, setParty] = useState('');
 
     useEffect(() => {
-        getRiceName()
-        getMiscData()
-
+        getRiceName();
+        getMiscData();
+        getPartyName();
     }, [])
-
-
-  
+    
     const getRiceName = () => {
         //get/rice/name
 
@@ -51,8 +50,14 @@ function RequestSample({navigation}): React.JSX.Element {
         })
     }
     
-    
-    const submitRequestSample = () => {
+    const getPartyName = () => {
+        get('get/party/name').then((res) => {
+            setPartiesList(res.data.parties);
+        }).catch((err) => {
+
+        })
+    }
+    const submitSampleFromAdmin = () => {
         setError('')
 
         if (Object.keys(data).length == 5) {
@@ -84,9 +89,14 @@ function RequestSample({navigation}): React.JSX.Element {
                     <ScrollView>
                         <View style={{ marginBottom: 0, }}>
                             <View style={[{}]}>
+
+                                <DropdownComponent defaultValue={Party?.name} items={PartyList} placeholder={'Party Name'} listname={'name'} selectedItem={(event, index) => {
+                                    setParty(event)
+                                    
+                                }} />
                                 <DropdownComponent defaultValue={data?.riceType?.name} items={[{ 'id': 0, 'name': 'Select any' }, { 'id': 1, 'name': 'basmati' }, { 'id': 2, 'name': 'non-basmati' }]} placeholder={'Rice Type'} listname={'name'} selectedItem={(event, index) => {
                                     setData((previousState) => (
-                                        { ...previousState, riceType: event }
+                                        { ...previousState, riceType: event, quantity: 0 }
                                     ))
                                 }} />
 
@@ -109,11 +119,11 @@ function RequestSample({navigation}): React.JSX.Element {
                                     ))
                                 }} />
 
-                                <InputComponent keyboardType={'numeric'} value={data?.quantity} placeholder={'Estimate Quantity'} onChange={(event) => {
+                                {/* <InputComponent keyboardType={'numeric'} value={data?.quantity} placeholder={'Estimate Quantity'} onChange={(event) => {
                                     setData((previousState) => (
                                         { ...previousState, quantity: event }
                                     ))
-                                }} />
+                                }} /> */}
                             </View>
                         </View>
                           
@@ -126,10 +136,8 @@ function RequestSample({navigation}): React.JSX.Element {
                         }
 
                         <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
-                            
-
                             {(!loader) ?
-                                <Pressable onPress={() => { submitRequestSample() }} style={[{}, secondryButton, paddingHorizontal15]}>
+                                <Pressable onPress={() => { submitSampleFromAdmin() }} style={[{}, secondryButton, paddingHorizontal15]}>
                                     <Text style={[{ color: primaryColor }, h3, Bold]}>Submit</Text>
                                 </Pressable>
                                 :
@@ -146,4 +154,4 @@ function RequestSample({navigation}): React.JSX.Element {
     );
 }
 
-export default RequestSample;
+export default SampleFromAdmin;

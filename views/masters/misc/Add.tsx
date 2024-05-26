@@ -12,33 +12,28 @@ import InputComponent from '../../components/InputComponent/Index';
 
 function AddMisc({ navigation }): React.JSX.Element {
 
-
-
-
-
-    const [riceType, setRiceType] = useState('basmati');
-    const [quality, setQuality] = useState('');
+    const [misc, setMisc] = useState('');
     const [error, setError] = useState('');
     const [loader, setLoader] = useState(false);
 
 
     const submitPurchaseOrder = () => {
         setError('');
-        if (quality.length > 0) {
+        if (misc.length > 0) {
             setLoader(true)
             let postedData = {
-                'riceType': riceType, 'quality': quality
+                'misc': misc
             };
 
             // POST Method
-            post('create/qualities', (postedData)).then((res) => {
+            post('create/misc', (postedData)).then((res) => {
                 console.log('res')
                 console.log(res)
                 if (res.data.status == 'error') {
                     setError(res.data.message)
                 } else {
-                    ShowToast("Quality added successfully");
-                    navigation.navigate('ListQuality');
+                    ShowToast("Misc added successfully");
+                    // navigation.navigate('Listmisc');
                 }
 
             }).catch((err) => {
@@ -63,7 +58,7 @@ function AddMisc({ navigation }): React.JSX.Element {
                                 setRiceType(event.name)
                             }} /> */}
 
-                            <InputComponent placeholder={'Misc'} onChange={(value) => { setQuality(value) }} />
+                            <InputComponent placeholder={'Misc'} onChange={(value) => { setMisc(value) }} />
 
                             {(error.length > 0) ?
                                 <View>

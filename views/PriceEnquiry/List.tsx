@@ -7,7 +7,7 @@ import { get } from '../components/apiComponent';
 import { Icon } from '@rneui/base';
 import { useFocusEffect } from '@react-navigation/native';
 
-function ListPriceEnquiry({ navigation }): React.JSX.Element {
+function ListPriceEnquiries({ navigation }): React.JSX.Element {
 
     const [DATA, setData] = useState([]);
 
@@ -22,20 +22,30 @@ function ListPriceEnquiry({ navigation }): React.JSX.Element {
 
 
     const getPurchaseOrderList = () => {
-        get('get/purchase/order/list').then((res) => {
+        get('list/price/enquiry').then((res) => {
             console.log(res.data.data)
             setData(res.data.data)
         }).catch((err) => {
             console.log(err)
         })
     }
+    const convertedToDateTime = (date) => {
+        return new Date(date).toLocaleString()
+    }
     const Item = ({ item }: ItemProps) => (
         <Pressable onPress={() => { navigation.navigate('PurchaseOrderView', { details: item }) }} style={[styles.item, { borderRadius: 10, borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingHorizontal5, paddingVertical1]}>
             <View style={{ flexDirection: 'row' }}>
-                <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2 }]}>Purchase No:</Text>
-                <Text style={[styles.title, h2, { color: '#000' }]}> {item.Order}</Text>
+                <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2,fontWeight: 800 }]}>Enquiry No:</Text>
+                <Text style={[styles.title, h2, { color: '#000' }]}> 100{item.id}</Text>
             </View>
-            <Text style={[styles.title, h3, SemiBold]}>{item?.party_details?.name}</Text>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2,fontWeight: 800 }]}>Enquiry of:</Text>
+                <Text style={[styles.title, h2, { color: '#000' }]}> {item?.rice_name_rel?.name} {item?.rice_form_rel?.form_name }</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2,fontWeight: 800 }]}>Enquiry on:</Text>
+                <Text style={[styles.title, h2, { color: '#000' }]}> {convertedToDateTime(item?.created_at)} </Text>
+            </View>
         </Pressable>
     );
     return (
@@ -78,4 +88,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ListPriceEnquiry;
+export default ListPriceEnquiries;

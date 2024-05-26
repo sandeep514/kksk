@@ -5,6 +5,7 @@ import { Pressable, Text } from 'react-native';
 import { View } from 'react-native';
 import { h3, h4, padding1, paddingHorizontal1, paddingHorizontal2, paddingVertical1, primaryColor, secondryBackgroundColor, secondryColor } from '../../res/assets/css/style';
 import { responsiveScreenHeight } from 'react-native-responsive-dimensions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 function Footer(): React.JSX.Element {
@@ -30,9 +31,9 @@ function Footer(): React.JSX.Element {
                     <Icon name="user" type='font-awesome' size={responsiveScreenHeight(3)} />
                     <Text style={[{ color: secondryColor }, h3]}>Profile</Text>
                 </Pressable>
-                <Pressable onPress={() => { navigation.openDrawer() }} style={[{}, padding1]}>
+                <Pressable onPress={() => { AsyncStorage.clear(),navigation.navigate('Login') }} style={[{}, padding1]}>
                     <Icon name="menu" size={responsiveScreenHeight(3)} />
-                    <Text style={[{ color: secondryColor }, h3]}>Menu</Text>
+                    <Text style={[{ color: secondryColor }, h3]}>Logout</Text>
                 </Pressable>
             </View >
         </View >

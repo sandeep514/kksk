@@ -1,33 +1,34 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { View, Pressable } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, Pressable } from 'react-native';
 
 import DropdownComponent from '../../components/DropdownComponent';
 import InputComponent from '../../components/InputComponent/Index';
-import { padding2, paddingHorizontal1, paddingHorizontal2, paddingVertical1, paddingVertical2, primaryButton, secondryButton, secondryBackgroundColor } from '../../../res/assets/css/style';
+import ButtonComponent from '../../components/ButtonComponent/Index';
+import { Bold, h3, padding1, paddingBottom1, paddingHorizontal15, primaryColor, secondryBackgroundColor, secondryButton } from '../../../res/assets/css/style';
 import { Text } from '@rneui/base';
-import { get } from '../../components/apiComponent';
+import { ShowToast, get, post } from '../../components/apiComponent';
+import { ActivityIndicator } from 'react-native';
+import Layout from '../../layout/Layout';
 
-function PriceEnquiryComponent({ defaultValue,setFormData }): React.JSX.Element {
+function PriceEnquiry({ navigation }): React.JSX.Element {
+    const [formComponentCount, setFormComponentCount] = useState([]);
+    const [loader, setLoader] = useState(false);
+    const [error, setError] = useState('');
 
-
-
+    const [additionalInfo, setAdditionalInfo] = useState("");
     const [riceName, setRiceName] = useState([]);
     const [riceForm, setriceForm] = useState([]);
-    const [RicePacking, setRicePacking] = useState([]);
-    const [RicePackingType, setRicePackingType] = useState([]);
-    const [data, setData] = useState(defaultValue);    
-
-    useEffect(() => {
-        setFormData(data)
-    }, [data])
-
-    const [selectedRiceType, setSelectedRiceType] = useState();
+    const [riceMisc, setRiceMisc] = useState([]);
+    const [data, setData] = useState();
 
 
     useEffect(() => {
         getRiceName()
-        getPackingData()
+        getMiscData()
+
     }, [])
+
+
 
     const getRiceName = () => {
         //get/rice/name
@@ -39,53 +40,109 @@ function PriceEnquiryComponent({ defaultValue,setFormData }): React.JSX.Element 
             console.log(err)
         })
     }
-    const getPackingData = () => {
+    const getMiscData = () => {
         //get/packing/data
 
-        get('get/packing/data').then((res) => {
-            setRicePacking(res.data.packing)
-            setRicePackingType(res.data.packingType)
+        get('get/misc/data').then((res) => {
+            setRiceMisc(res.data.misc)
         }).catch((err) => {
             console.log(err)
         })
     }
 
+
+    const submitRequestSample = () => {
+        setError('')
+
+        if (Object.keys(data).length == 5) {
+            setLoader(true)
+            // POST Method
+            data['additionalInfo'] = additionalInfo;
+            console.log('data')
+            console.log(data)
+            post('add/requested/sample', (data)).then((res) => {
+                console.log('port res');
+                console.log(res)
+                ShowToast('sample requested successfully')
+                // navigation.navigate('ListPurchase');
+            }).catch((err) => {
+                setError('Something went wrong')
+            }).finally(() => {
+                setLoader(false)
+            })
+        } else {
+            setError('required fields are missing')
+        }
+
+
+    }
     return (
-        <View style={{ marginBottom: 0, }}>
-            <View style={[{  }]}>
-                <DropdownComponent defaultValue={data?.riceType?.name} items={[{ 'id': 0, 'name': 'Select any' }, { 'id': 1, 'name': 'basmati' }, { 'id': 2, 'name': 'non-basmati' }]} placeholder={'Rice Type'} listname={'name'} selectedItem={(event, index) => {
-                    setData((previousState) => (
-                        { ...previousState, riceType: event }
-                    ))
-                }} />
+        <Layout >
+            <View>
+                <View>
+                    <ScrollView>
+                        <View style={{ marginBottom: 0, }}>
+                            <View style={[{}]}>
+                                <DropdownComponent defaultValue={data?.riceType?.name} items={[{ 'id': 0, 'name': 'Select any' }, { 'id': 1, 'name': 'basmati' }, { 'id': 2, 'name': 'non-basmati' }]} placeholder={'Rice Type'} listname={'name'} selectedItem={(event, index) => {
+                                    setData((previousState) => (
+                                        { ...previousState, riceType: event }
+                                    ))
+                                }} />
 
-                <DropdownComponent defaultValue={data?.riceName?.name} items={riceName[data?.riceType?.name]} placeholder={'Quality Name'} listname={'name'} selectedItem={(event, index) => {
-                    setData((previousState) => (
-                        { ...previousState, riceName: event }
-                    ))
-                }} />
+                                <DropdownComponent defaultValue={data?.riceName?.name} items={riceName[data?.riceType?.name]} placeholder={'Quality Name'} listname={'name'} selectedItem={(event, index) => {
+                                    setData((previousState) => (
+                                        { ...previousState, riceName: event }
+                                    ))
+                                }} />
 
-                <DropdownComponent defaultValue={data?.riceForm?.form_name} items={(data?.riceType) ? riceForm[data?.riceType?.name] : {}} placeholder={'Sub Quality Name'} listname={'form_name'} selectedItem={(event, index) => {
-                    setData((previousState) => (
-                        { ...previousState, riceForm: event }
-                    ))
-                }} />
+                                <DropdownComponent defaultValue={data?.riceForm?.form_name} items={(data?.riceType) ? riceForm[data?.riceType?.name] : {}} placeholder={'Sub Quality Name'} listname={'form_name'} selectedItem={(event, index) => {
+                                    setData((previousState) => (
+                                        { ...previousState, riceForm: event }
+                                    ))
+                                }} />
 
 
-                <DropdownComponent defaultValue={data?.packing?.code} items={RicePacking} placeholder={'Misc'} listname={'code'} selectedItem={(event, index) => {
-                    setData((previousState) => (
-                        { ...previousState, packing: event }
-                    ))
-                }} />
+                                <DropdownComponent defaultValue={data?.misc?.misc} items={riceMisc} placeholder={'Misc'} listname={'misc'} selectedItem={(event, index) => {
+                                    setData((previousState) => (
+                                        { ...previousState, misc: event }
+                                    ))
+                                }} />
 
-                <InputComponent keyboardType={'numeric'} value={data?.bags} placeholder={'Estimate Quantity'} onChange={(event) => {
-                    setData((previousState) => (
-                        { ...previousState, quantity: event }
-                    ))
-                }} />
+                                <InputComponent keyboardType={'numeric'} value={data?.quantity} placeholder={'Estimate Quantity'} onChange={(event) => {
+                                    setData((previousState) => (
+                                        { ...previousState, quantity: event }
+                                    ))
+                                }} />
+                            </View>
+                        </View>
+
+                        <InputComponent placeholder={'Remarks'} onChange={(value) => { setAdditionalInfo(value) }} />
+                        {(error.length > 0) ?
+                            <View>
+                                <Text style={[{ color: 'red', textAlign: 'center' }, h3, paddingBottom1]}>{error}</Text>
+                            </View>
+                            : null
+                        }
+
+                        <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+
+
+                            {(!loader) ?
+                                <Pressable onPress={() => { submitRequestSample() }} style={[{}, secondryButton, paddingHorizontal15]}>
+                                    <Text style={[{ color: primaryColor }, h3, Bold]}>Submit</Text>
+                                </Pressable>
+                                :
+                                <View style={[{}, secondryButton, paddingHorizontal15]}>
+                                    <Text style={[{ color: primaryColor }, h3, Bold]}><ActivityIndicator /></Text>
+                                </View>
+                            }
+                        </View>
+
+                    </ScrollView>
+                </View>
             </View>
-        </View>
+        </Layout>
     );
 }
 
-export default PriceEnquiryComponent;
+export default PriceEnquiry;
