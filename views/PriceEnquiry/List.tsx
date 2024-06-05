@@ -6,6 +6,7 @@ import { Medium, Regular, SemiBold, h1, h2, h3, h4, h5, header, height100, mainH
 import { get } from '../components/apiComponent';
 import { Icon } from '@rneui/base';
 import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function ListPriceEnquiries({ navigation }): React.JSX.Element {
 
@@ -22,12 +23,19 @@ function ListPriceEnquiries({ navigation }): React.JSX.Element {
 
 
     const getPurchaseOrderList = () => {
-        get('list/price/enquiry').then((res) => {
-            console.log(res.data.data)
-            setData(res.data.data)
+        AsyncStorage.getItem('userDetails').then((res) => {
+            let userId = (JSON.parse(res)?.id)
+            get('list/price/enquiry/' + userId).then((res) => {
+                console.log('res.data.data')
+                console.log(res)
+                setData(res.data.data)
+            }).catch((err) => {
+                console.log(err)
+            })
         }).catch((err) => {
-            console.log(err)
+
         })
+       
     }
     const convertedToDateTime = (date) => {
         return new Date(date).toLocaleString()

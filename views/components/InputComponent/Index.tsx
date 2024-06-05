@@ -15,7 +15,7 @@ function InputComponent({ editable = true, value, placeholder, onChange, keyboar
 
 export default InputComponent
 const stylesheet = StyleSheet.create({
-    inputStyle: { backgroundColor: '#f0f0f0', borderRadius: 5, paddingHorizontal: 15 },
-    containerStyle: { borderRadius: 10, padding: 0, margin: 0, backgroundColor: '#f0f0f0' },
-    inputContainerStyle: { borderRadius: 10, borderBottomWidth: 0, margin: 0, padding: 0, backgroundColor: '#f0f0f0' }
+    inputStyle: { backgroundColor: '#f0f0f0', borderRadius: 5, paddingHorizontal: 15,color: '#000' },
+    containerStyle: { borderRadius: 10, padding: 0, margin: 0, backgroundColor: '#f0f0f0',color: '#000' },
+    inputContainerStyle: { borderRadius: 10, borderBottomWidth: 0, margin: 0, padding: 0, backgroundColor: '#f0f0f0',color: '#000' }
 })

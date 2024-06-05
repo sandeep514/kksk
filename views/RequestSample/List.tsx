@@ -6,6 +6,7 @@ import { Medium, Regular, SemiBold, h1, h2, h3, h4, h5, header, height100, mainH
 import { get } from '../components/apiComponent';
 import { Icon } from '@rneui/base';
 import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function ListRequestSample({ navigation }): React.JSX.Element {
 
@@ -22,11 +23,16 @@ function ListRequestSample({ navigation }): React.JSX.Element {
 
 
     const getPurchaseOrderList = () => {
-        get('list/requested/sample').then((res) => {
-            console.log(res.data.data)
-            setData(res.data.data)
+        AsyncStorage.getItem('userDetails').then((res) => {
+            let userId = (JSON.parse(res)?.id)
+            get('list/requested/sample/' + userId).then((res) => {
+                console.log(res.data.data)
+                setData(res.data.data)
+            }).catch((err) => {
+                console.log(err)
+            })
         }).catch((err) => {
-            console.log(err)
+
         })
     }
     const convertedToDateTime = (date) => {

@@ -16,19 +16,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Drawer = createDrawerNavigator();
 function App(): React.JSX.Element {
 	const isDarkMode = useColorScheme() === 'dark';
-	const [ initialRoute , setInitialRoute] = useState();
-	useEffect(() => {
-		AsyncStorage.getItem('userDetails').then((res) => {
-			setInitialRoute('Dashboard')
-		}).catch((err) => {
-			setInitialRoute('Login')
-		}) 
-	} , [])
+	
 	return (
 
 		<NavigationContainer>
-			{(initialRoute) ?
-				<Drawer.Navigator initialRouteName={initialRoute} screenOptions={{ headerShown: false }}>
+				<Drawer.Navigator screenOptions={{ headerShown: false }}>
 					<Drawer.Screen name="AppNavigator" component={AppNavigator} />
 					<Drawer.Screen name="Quality Master" component={ListQuality} />
 					<Drawer.Screen name="Sub Quality Master" component={ListSubQuality} />
@@ -54,10 +46,6 @@ function App(): React.JSX.Element {
 					<Drawer.Screen name="RequestSampleView" component={RequestSampleView} />
 					<Drawer.Screen name="ListRequestSample" component={ListRequestSample} /> */}
 				</Drawer.Navigator>
-			:
-			
-					''
-			}
 			
 		</NavigationContainer>
 	);

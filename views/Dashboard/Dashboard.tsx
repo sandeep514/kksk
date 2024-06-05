@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import Layout from '../layout/Layout';
@@ -12,24 +12,29 @@ import {
 } from '../../res/assets/css/style';
 import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 function Dashboard({ navigation }): React.JSX.Element {
     const [userDetails, setUserDetails] = useState();
-    useEffect(() => {
+    useFocusEffect(useCallback(() => {
         AsyncStorage.getItem('userDetails').then((userData) => {
             setUserDetails(JSON.parse(userData))
             console.log(JSON.parse(userData).role)
         }).catch((err) => {
 
         })
+    } , []))
+    useEffect(() => {
+        
+        
     }, [])
 
     const adminRoutes = [{ 'title': 'List Sample From Admin', 'route': 'ListSampleFromAdmin' }, { 'title': 'List Quality', 'route': 'ListQuality' },
-        { 'title': 'ListSubQuality', 'route': 'ListSubQuality' },
-        { 'title': 'ListUser', 'route': 'ListUser' },
-        { 'title': 'ListMisc', 'route': 'ListMisc' }];
+        { 'title': 'List Sub Quality', 'route': 'List Sub Quality' },
+        { 'title': 'List User', 'route': 'ListUser' },
+        { 'title': 'List Misc', 'route': 'ListMisc' }];
 
-    const brokerRoutes = [{ 'title': 'ListPriceEnquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'List Sample From Admin', 'route': 'ListSampleFromAdmin' },{ 'title': 'ListRequestSample', 'route': 'ListRequestSample' }];
+    const brokerRoutes = [{ 'title': 'List Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'List Sample From Admin', 'route': 'ListSampleFromAdmin' },{ 'title': 'List Request Sample', 'route': 'ListRequestSample' }];
     
     
     

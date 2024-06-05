@@ -32,7 +32,7 @@ function Footer(): React.JSX.Element {
                     <Text style={[{ color: secondryColor }, h3]}>Profile</Text>
                 </Pressable>
                 <Pressable onPress={() => { AsyncStorage.clear(),navigation.navigate('Login') }} style={[{}, padding1]}>
-                    <Icon name="menu" size={responsiveScreenHeight(3)} />
+                    <Icon name="lock" size={responsiveScreenHeight(3)} color="red"/>
                     <Text style={[{ color: secondryColor }, h3]}>Logout</Text>
                 </Pressable>
             </View >

@@ -6,28 +6,38 @@ import { Medium, Regular, SemiBold, h1, h2, h3, h4, h5, header, height100, mainH
 import { get } from '../components/apiComponent';
 import { Icon } from '@rneui/base';
 import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 function ListSampleFromAdmin({ navigation }): React.JSX.Element {
 
     const [DATA, setData] = useState([]);
+    const [userRole, setUserRole] = useState();
 
     useFocusEffect(useCallback(() => {
-        getPurchaseOrderList()
+        getSampleFromAdmin()
     }, []))
 
     useEffect(() => {
-        getPurchaseOrderList();
+        getSampleFromAdmin();
     }, [])
 
 
 
-    const getPurchaseOrderList = () => {
-        get('list/requested/sample').then((res) => {
-            console.log(res.data.data)
-            setData(res.data.data)
+    const getSampleFromAdmin = () => {
+        AsyncStorage.getItem('userDetails').then((res) => {
+            let userId = (JSON.parse(res)?.id)
+            setUserRole((JSON.parse(res)?.role))
+            get('list/sample/from/admin/' + userId).then((res) => {
+                console.log(res.data.data)
+                setData(res.data.data)
+            }).catch((err) => {
+                console.log(err)
+            })
         }).catch((err) => {
             console.log(err)
-        })
+        }) 
+        
     }
     const convertedToDateTime = (date) => {
         return new Date(date).toLocaleString()
@@ -64,12 +74,16 @@ function ListSampleFromAdmin({ navigation }): React.JSX.Element {
                     </View>
 
                 </View>
-                <View style={{ position: 'absolute', bottom: 0, right: 0 }}>
-                    <Pressable onPress={() => { navigation.navigate('SampleFromAdmin') }} style={[{ borderRadius: 100, padding: 15 }, secondryBackgroundColor]}>
-                        <Text style={[{ color: primaryColor, }, mainHeader, {}]}><Icon name='add' color={primaryColor} /></Text>
-                    </Pressable>
-                </View>
-
+                {/* {(userRole == 2) ? */}
+                    <View style={{ position: 'absolute', bottom: 0, right: 0 }}>
+                        <Pressable onPress={() => { navigation.navigate('SampleFromAdmin') }} style={[{ borderRadius: 100, padding: 15 }, secondryBackgroundColor]}>
+                            <Text style={[{ color: primaryColor, }, mainHeader, {}]}><Icon name='add' color={primaryColor} /></Text>
+                        </Pressable>
+                    </View>
+                {/* :
+                    null
+                } */}
+                
             </View>
         </Layout>
     );

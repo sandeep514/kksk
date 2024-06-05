@@ -52,6 +52,7 @@ function SampleFromAdmin({navigation}): React.JSX.Element {
     
     const getPartyName = () => {
         get('get/party/name').then((res) => {
+            
             setPartiesList(res.data.parties);
         }).catch((err) => {
 
@@ -64,6 +65,7 @@ function SampleFromAdmin({navigation}): React.JSX.Element {
             setLoader(true)
             // POST Method
             data['additionalInfo'] = additionalInfo;
+            data['party'] = Party;
             console.log('data')
             console.log(data)
             post('add/requested/sample', (data)).then((res) => {
