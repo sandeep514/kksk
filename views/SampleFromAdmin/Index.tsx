@@ -40,6 +40,7 @@ function SampleFromAdmin({navigation}): React.JSX.Element {
             console.log(err)
         })
     }
+    
     const getMiscData = () => {
         //get/packing/data
 
@@ -52,7 +53,6 @@ function SampleFromAdmin({navigation}): React.JSX.Element {
     
     const getPartyName = () => {
         get('get/party/name').then((res) => {
-            
             setPartiesList(res.data.parties);
         }).catch((err) => {
 
@@ -66,10 +66,8 @@ function SampleFromAdmin({navigation}): React.JSX.Element {
             // POST Method
             data['additionalInfo'] = additionalInfo;
             data['party'] = Party;
-            console.log('data')
-            console.log(data)
-            post('add/requested/sample', (data)).then((res) => {
-                console.log('port res');
+            post('add/sample/from/admin', (data)).then((res) => {
+                console.log('res')
                 console.log(res)
                 ShowToast('sample requested successfully')
                 // navigation.navigate('ListPurchase');

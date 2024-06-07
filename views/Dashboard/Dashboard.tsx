@@ -13,6 +13,7 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import ListSubQuality from '../masters/subQualityMaster/List';
 
 function Dashboard({ navigation }): React.JSX.Element {
     const [userDetails, setUserDetails] = useState();
@@ -29,13 +30,12 @@ function Dashboard({ navigation }): React.JSX.Element {
         
     }, [])
 
-    const adminRoutes = [{ 'title': 'List Sample From Admin', 'route': 'ListSampleFromAdmin' }, { 'title': 'List Quality', 'route': 'ListQuality' },
-        { 'title': 'List Sub Quality', 'route': 'List Sub Quality' },
+    const adminRoutes = [ { 'title': 'List Quality', 'route': 'ListQuality' },
+        { 'title': 'List Sub Quality', 'route': 'ListSubQuality' },
         { 'title': 'List User', 'route': 'ListUser' },
-        { 'title': 'List Misc', 'route': 'ListMisc' }];
+        { 'title': 'List Misc', 'route': 'ListMisc' }, { 'title': 'List Sample From KKSK', 'route': 'ListSampleFromAdmin' }, { 'title': 'List Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'List Request Sample', 'route': 'ListRequestSample' }];
 
-    const brokerRoutes = [{ 'title': 'List Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'List Sample From Admin', 'route': 'ListSampleFromAdmin' },{ 'title': 'List Request Sample', 'route': 'ListRequestSample' }];
-    
+    const brokerRoutes = [{ 'title': 'List Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'List Sample From Admin', 'route': 'ListSampleFromAdmin' },{ 'title': 'List Request Sample', 'route': 'ListRequestSample' }];    
     
     
     

@@ -1,3 +1,4 @@
+import { color } from "@rneui/base";
 import { responsiveFontSize, responsiveHeight, responsiveScreenHeight, responsiveWidth } from "react-native-responsive-dimensions"
 
 
@@ -7,21 +8,21 @@ export const primaryButton = { backgroundColor: primaryColor, paddingHorizontal:
 
 
 
-export const h1 = { fontSize: responsiveFontSize(2.6 ) }
-export const h2 = { fontSize: responsiveFontSize(2.4 ) }
-export const h3 = { fontSize: responsiveFontSize(2.0 ) }
-export const h4 = { fontSize: responsiveFontSize(1.6 ) }
-export const h5 = { fontSize: responsiveFontSize(1.2 ) }
-export const h6 = { fontSize: responsiveFontSize(1.0 ) }
+export const h1 = { fontSize: responsiveFontSize(2.6 ),color: '#000' }
+export const h2 = { fontSize: responsiveFontSize(2.4), color: '#000' }
+export const h3 = { fontSize: responsiveFontSize(2.0), color: '#000' }
+export const h4 = { fontSize: responsiveFontSize(1.6), color: '#000' }
+export const h5 = { fontSize: responsiveFontSize(1.2), color: '#000' }
+export const h6 = { fontSize: responsiveFontSize(1.0), color: '#000' }
 
 
-export const mainHeader = { fontSize: responsiveFontSize(3.2 ), fontFamily: 'Roboto-Bold' }
-export const header = { fontSize: responsiveFontSize(3.1 ), fontFamily: 'Roboto-Bold' }
-export const smallHeader = { fontSize: responsiveFontSize(2.7 ), fontFamily: 'Roboto-Medium' }
-export const mainTitle = { fontSize: responsiveFontSize(2.1 ), fontFamily: 'Roboto-Medium' }
-export const title = { fontSize: responsiveFontSize(1.7 ), fontFamily: 'Roboto-Regular' }
-export const smallTitle = { fontSize: responsiveFontSize(1.3 ), fontFamily: 'Roboto-Regular' }
-export const p = { fontSize: responsiveFontSize(1.1 ), fontFamily: 'Roboto-Regular' }
+export const mainHeader = { fontSize: responsiveFontSize(3.2 ), fontFamily: 'Roboto-Bold' ,color: '#000'}
+export const header = { fontSize: responsiveFontSize(3.1 ), fontFamily: 'Roboto-Bold' ,color: '#000'}
+export const smallHeader = { fontSize: responsiveFontSize(2.7 ), fontFamily: 'Roboto-Medium' ,color: '#000'}
+export const mainTitle = { fontSize: responsiveFontSize(2.1 ), fontFamily: 'Roboto-Medium' ,color: '#000'}
+export const title = { fontSize: responsiveFontSize(1.7 ), fontFamily: 'Roboto-Regular' ,color: '#000'}
+export const smallTitle = { fontSize: responsiveFontSize(1.3 ), fontFamily: 'Roboto-Regular' ,color: '#000'}
+export const p = { fontSize: responsiveFontSize(1.1 ), fontFamily: 'Roboto-Regular' ,color: '#000'}
 
 export const Bold = { fontFamily: 'Roboto-Bold' }
 export const SemiBold = { fontFamily: 'Roboto-Medium' }

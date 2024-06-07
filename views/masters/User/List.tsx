@@ -62,7 +62,7 @@ function ListUser({ navigation }): React.JSX.Element {
                         <View style={{}}>
                             <View >
                                 
-                                <DropdownComponent items={role} placeholder={'Rice Type'} listname={'role_name'} selectedItem={(event, index) => {
+                                <DropdownComponent items={role} placeholder={'User Role'} listname={'role_name'} selectedItem={(event, index) => {
                                     setSelectedRole(event.id)
                                 }} />
                                 {(loader) ?
