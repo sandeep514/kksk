@@ -14,9 +14,108 @@ import ListUser from './views/masters/User/List';
 import ListGrade from './views/masters/grade/List';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const Drawer = createDrawerNavigator();
+import messaging from '@react-native-firebase/messaging';
+import { post } from './views/components/apiComponent';
+import { Notifications } from 'react-native-notifications';
+
 function App(): React.JSX.Element {
 	const isDarkMode = useColorScheme() === 'dark';
-	
+	useEffect(() => {
+		getFMNToken()
+	} , [])
+	async function getFMNToken() {
+		console.log("lmlk");
+		let fcmToken = await AsyncStorage.getItem('fcmToken');
+		await messaging().registerDeviceForRemoteMessages();
+
+		try {
+			if (fcmToken == null) {
+				const token = await messaging().getToken();
+				AsyncStorage.setItem('fcmToken', await messaging().getToken())
+				updateUserToken(fcmToken);
+				notificationListner()
+				console.log("i am here3");
+			} else {
+				console.log(fcmToken);
+				updateUserToken(fcmToken);
+				notificationListner()
+				console.log("i am here2");
+			}
+		} catch (error) {
+
+		}
+	}
+	const updateUserToken = (token) => {
+		AsyncStorage.getItem('userDetails').then((res) => {
+			if (res != undefined && res != null) {
+				let postedData = {
+					id: JSON.parse(res).id,
+					token: token
+				}
+				console.log(postedData)
+				post('update/user/token', postedData).then((res) => {
+					console.log(res)
+				}).catch((err) => {
+					console.log(err)
+				});
+			}
+		}).catch((err) => {
+
+		});
+	}
+	const notificationListner = () => {
+		return new Promise((resolve, reject) => {
+			messaging().onNotificationOpenedApp(remoteMessage => {
+				console.log("hi");
+				console.log(remoteMessage)
+				// console.log('Notification caused app to open from background state:',remoteMessage.notification);
+			});
+
+			// Check whether an initial notification is available
+			messaging().getInitialNotification().then(remoteMessage => {
+				if (remoteMessage) {
+					// Notifications.registerRemoteNotifications();
+					// Notifications.postLocalNotification({
+					// 	identifier: '0',
+					// 	body: 'Local notification!',
+					// 	title: 'Local Notification Title',
+					// 	sound: 'chime.aiff',
+					// 	badge: 0,
+					// 	type: '',
+					// 	thread: '',
+					// 	payload: {
+					// 		category: 'SOME_CATEGORY',
+					// 		link: 'localNotificationLink',
+					// 		android_channel_id: 'my-channel',
+					// 	}
+					// });
+					// console.log('Notification caused app to open from quit state:',remoteMessage.notification);
+				}
+				console.log("hierfr");
+
+			});
+			messaging().onMessage(async remoteMessage => {
+				resolve(remoteMessage)
+				console.log("hifrefrf");
+				console.log(remoteMessage);
+				// Notifications.postLocalNotification({
+				// 	identifier: '0',
+				// 	body: 'Local notification!',
+				// 	title: 'Local Notification Title',
+				// 	sound: 'chime.aiff',
+				// 	badge: 0,
+				// 	type: '',
+				// 	thread: '',
+				// 	payload: {
+				// 		category: 'SOME_CATEGORY',
+				// 		link: 'localNotificationLink',
+				// 		android_channel_id: 'my-channel',
+				// 	}
+				// });
+			});
+		})
+
+	}
 	return (
 
 		<NavigationContainer>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "601363045944",
+    "project_id": "kksk-sachin-app-develop",
+    "storage_bucket": "kksk-sachin-app-develop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601363045944:android:37ce8d60411b09748e50cd",
+        "android_client_info": {
+          "package_name": "com.kksk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKscml_Oqr8KKryHfMcyxUfSpFAcdz-6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

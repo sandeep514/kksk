@@ -5,9 +5,7 @@ import { Bold, h2, padding1, secondryColor } from '../../res/assets/css/style';
 import { Icon } from '@rneui/base';
 import { useRoute } from '@react-navigation/native';
 
-
 function Header(): React.JSX.Element {
-    
     const isDarkMode = useColorScheme() === 'dark';
     const navigation = useNavigation();
     const route = useRoute();
@@ -23,6 +21,7 @@ function Header(): React.JSX.Element {
     return (
         <View>
             <View style={[{ borderRadius: 10, flexDirection: 'row', justifyContent: 'space-between' }, padding1]}>
+
                 <View>
                     <Pressable onPress={() => { navigation.goBack() }} style={{padding:10}}>
                         <Icon name="chevron-left" color={'#000'} size={25} />
@@ -40,7 +39,9 @@ function Header(): React.JSX.Element {
                         </View>
                     </Pressable>
                 </View>
+
             </View>
+            
 
         </View>
     );

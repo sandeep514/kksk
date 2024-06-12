@@ -30,12 +30,12 @@ function Dashboard({ navigation }): React.JSX.Element {
         
     }, [])
 
-    const adminRoutes = [ { 'title': 'List Quality', 'route': 'ListQuality' },
-        { 'title': 'List Sub Quality', 'route': 'ListSubQuality' },
-        { 'title': 'List User', 'route': 'ListUser' },
-        { 'title': 'List Misc', 'route': 'ListMisc' }, { 'title': 'List Sample From KKSK', 'route': 'ListSampleFromAdmin' }, { 'title': 'List Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'List Request Sample', 'route': 'ListRequestSample' }];
+    const adminRoutes = [ { 'title': 'Quality Master', 'route': 'ListQuality' },
+        { 'title': 'Sub Quality Master', 'route': 'ListSubQuality' },
+        { 'title': 'User Master', 'route': 'ListUser' },
+        { 'title': 'Misc Master', 'route': 'ListMisc' }, { 'title': 'Sample From KKSK', 'route': 'ListSampleFromAdmin' }, { 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Request Sample', 'route': 'ListRequestSample' }];
 
-    const brokerRoutes = [{ 'title': 'List Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'List Sample From Admin', 'route': 'ListSampleFromAdmin' },{ 'title': 'List Request Sample', 'route': 'ListRequestSample' }];    
+    const brokerRoutes = [{ 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Sample From Admin', 'route': 'ListSampleFromAdmin' },{ 'title': 'Request Sample', 'route': 'ListRequestSample' }];    
     
     
     
