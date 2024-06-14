@@ -4,15 +4,18 @@ import { View, ScrollView, Pressable } from 'react-native';
 import Layout from '../layout/Layout';
 import DropdownComponent from '../components/DropdownComponent';
 import InputComponent from '../components/InputComponent/Index';
-import ButtonComponent from '../components/ButtonComponent/Index';
 import { Bold, h3, padding1, paddingBottom1, paddingHorizontal15, primaryColor, secondryBackgroundColor, secondryButton } from '../../res/assets/css/style';
 import { Text } from '@rneui/base';
-import RequestSampleComponent from './component/RequestSampleComponent';
 import { ShowToast, get, post } from '../components/apiComponent';
 import { ActivityIndicator } from 'react-native';
+import WandAdderComponent from './component/WandAdderComponent';
+import ListGrade from '../masters/grade/List';
 
-function SampleFromAdmin({navigation}): React.JSX.Element {
-    const [formComponentCount, setFormComponentCount] = useState([]);
+function SampleFromAdmin({ navigation }): React.JSX.Element {
+    const generateRandomNumber = () => {
+        return (Math.floor(Math.random() * 224245))
+    }
+    const [formComponentCount, setFormComponentCount] = useState([{ 'minid': generateRandomNumber() }]);
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState('');
 
@@ -22,12 +25,14 @@ function SampleFromAdmin({navigation}): React.JSX.Element {
     const [riceMisc, setRiceMisc] = useState([]);
     const [data, setData] = useState();
     const [PartyList, setPartiesList] = useState([]);
+    const [riceWand, setRiceWand] = useState([]);
     const [Party, setParty] = useState('');
 
     useEffect(() => {
         getRiceName();
         getMiscData();
         getPartyName();
+        getRiceWand();
     }, [])
     
     const getRiceName = () => {
@@ -58,19 +63,29 @@ function SampleFromAdmin({navigation}): React.JSX.Element {
 
         })
     }
+
+    const getRiceWand = () => {
+        get('get/all/wand').then((res) => {
+            setRiceWand(res.data.data);
+        }).catch((err) => {
+
+        })
+    }
+
     const submitSampleFromAdmin = () => {
         setError('')
-
-        if (Object.keys(data).length == 5) {
+        
+        if (data && Object.keys(data).length == 5) {
             setLoader(true)
             // POST Method
             data['additionalInfo'] = additionalInfo;
             data['party'] = Party;
+            data['grade'] = formComponentCount;
+
+            
             post('add/sample/from/admin', (data)).then((res) => {
-                console.log('res')
-                console.log(res)
                 ShowToast('sample requested successfully')
-                // navigation.navigate('ListPurchase');
+                navigation.navigate('ListPurchase');
             }).catch((err) => {
                 setError('Something went wrong')
             }).finally(() => {
@@ -82,6 +97,26 @@ function SampleFromAdmin({navigation}): React.JSX.Element {
             
        
     }
+    const deleteRow = (deletedMinid) => {
+        let minidToRemove = deletedMinid;
+
+        let processedArray = formComponentCount.filter(function (item, index) {
+            return item.minid !== minidToRemove
+        })
+
+        setFormComponentCount(processedArray);
+    }
+
+    const updateFormData = (myKey, data) => {
+        formComponentCount[myKey] = data;
+        setFormComponentCount(formComponentCount);
+    }
+
+    const addNewRow = () => {
+        setFormComponentCount([...formComponentCount, { 'minid': generateRandomNumber() }]);
+
+    }
+    
     return (
         <Layout >
             <View>
@@ -124,6 +159,18 @@ function SampleFromAdmin({navigation}): React.JSX.Element {
                                         { ...previousState, quantity: event }
                                     ))
                                 }} /> */}
+                            </View>
+                            {Object.keys(formComponentCount).map((value, index) => {
+                                return (
+                                    <View key={formComponentCount[index].minid}>
+                                        <WandAdderComponent minid={formComponentCount[index].minid} defaultValue={formComponentCount[index]} value={value} index={index} deleteIndex={(deletedMinid) => { deleteRow(deletedMinid) }} setFormData={(data) => { updateFormData(index, data) }} grade={riceWand} />
+                                    </View>
+                                )
+                            })}
+                            <View style={[{ alignSelf: 'flex-end' }]}>
+                                <Pressable style={[{}, secondryBackgroundColor, padding1]} onPress={() => { addNewRow() }}>
+                                    <Text style={[{ color: '#fff' }]}>Add New Row</Text>
+                                </Pressable>
                             </View>
                         </View>
                           

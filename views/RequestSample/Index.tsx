@@ -12,13 +12,17 @@ import { ShowToast, get, post } from '../components/apiComponent';
 import { ActivityIndicator } from 'react-native';
 
 function RequestSample({navigation}): React.JSX.Element {
-    const [formComponentCount, setFormComponentCount] = useState([]);
+    const generateRandomNumber = () => {
+        return (Math.floor(Math.random() * 224245))
+    }
+    const [formComponentCount, setFormComponentCount] = useState([{ 'minid': generateRandomNumber() }]);
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState('');
 
     const [additionalInfo, setAdditionalInfo] = useState("");
     const [riceName, setRiceName] = useState([]);
     const [riceForm, setriceForm] = useState([]);
+    const [riceWand, setRiceWand] = useState([]);
     const [riceMisc, setRiceMisc] = useState([]);
     const [data, setData] = useState();
 
@@ -26,11 +30,18 @@ function RequestSample({navigation}): React.JSX.Element {
     useEffect(() => {
         getRiceName()
         getMiscData()
+        getRiceWand()
 
     }, [])
 
 
-  
+    const getRiceWand = () => {
+        get('get/all/wand').then((res) => {
+            setRiceWand(res.data.data);
+        }).catch((err) => {
+
+        })
+    }
     const getRiceName = () => {
         //get/rice/name
 
@@ -54,19 +65,21 @@ function RequestSample({navigation}): React.JSX.Element {
     
     const submitRequestSample = () => {
         setError('')
-
-        if (Object.keys(data).length == 5) {
+        console.log('data');
+        console.log(data);
+        
+        console.log(Object.keys(data).length);
+        if (Object.keys(data).length >= 5) {
             setLoader(true)
             // POST Method
             data['additionalInfo'] = additionalInfo;
-            console.log('data')
-            console.log(data)
+            data['grade'] = formComponentCount;
             post('add/requested/sample', (data)).then((res) => {
-                console.log('port res');
-                console.log(res)
+                console.log(res);
                 ShowToast('sample requested successfully')
                 // navigation.navigate('ListPurchase');
             }).catch((err) => {
+                console.log(err);
                 setError('Something went wrong')
             }).finally(() => {
                 setLoader(false)
@@ -76,6 +89,25 @@ function RequestSample({navigation}): React.JSX.Element {
         }
             
        
+    }
+    const deleteRow = (deletedMinid) => {
+        let minidToRemove = deletedMinid;
+
+        let processedArray = formComponentCount.filter(function (item, index) {
+            return item.minid !== minidToRemove
+        })
+
+        setFormComponentCount(processedArray);
+    }
+
+    const updateFormData = (myKey, data) => {
+        formComponentCount[myKey] = data;
+        setFormComponentCount(formComponentCount);
+    }
+
+    const addNewRow = () => {
+        setFormComponentCount([...formComponentCount, { 'minid': generateRandomNumber() }]);
+
     }
     return (
         <Layout >
@@ -114,6 +146,18 @@ function RequestSample({navigation}): React.JSX.Element {
                                         { ...previousState, quantity: event }
                                     ))
                                 }} />
+                            </View>
+                            {Object.keys(formComponentCount).map((value, index) => {
+                                return (
+                                    <View key={formComponentCount[index].minid}>
+                                        <RequestSampleComponent minid={formComponentCount[index].minid} defaultValue={formComponentCount[index]} value={value} index={index} deleteIndex={(deletedMinid) => { deleteRow(deletedMinid) }} setFormData={(data) => { updateFormData(index, data) }} grade={riceWand} />
+                                    </View>
+                                )
+                            })}
+                            <View style={[{ alignSelf: 'flex-end' }]}>
+                                <Pressable style={[{}, secondryBackgroundColor, padding1]} onPress={() => { addNewRow() }}>
+                                    <Text style={[{ color: '#fff' }]}>Add New Row</Text>
+                                </Pressable>
                             </View>
                         </View>
                           

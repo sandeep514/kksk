@@ -26,8 +26,8 @@ export const get = (url) => {
 
 export const post = (url, postedData) => {
     return new Promise((resolve, reject) => {
-        AsyncStorage.getItem('id').then((userId) => {
-            postedData['userId'] = userId;
+        AsyncStorage.getItem('userDetails').then((userDetails) => {
+            postedData['userId'] = JSON.parse(userDetails)?.id;
             api.post(url, JSON.stringify(postedData))
                 .then((response) => {
                     console.log('response');

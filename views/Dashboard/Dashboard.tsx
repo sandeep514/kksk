@@ -33,7 +33,9 @@ function Dashboard({ navigation }): React.JSX.Element {
     const adminRoutes = [ { 'title': 'Quality Master', 'route': 'ListQuality' },
         { 'title': 'Sub Quality Master', 'route': 'ListSubQuality' },
         { 'title': 'User Master', 'route': 'ListUser' },
-        { 'title': 'Misc Master', 'route': 'ListMisc' }, { 'title': 'Sample From KKSK', 'route': 'ListSampleFromAdmin' }, { 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Request Sample', 'route': 'ListRequestSample' }];
+        { 'title': 'Misc Master', 'route': 'ListMisc' },
+        { 'title': 'Grade Master', 'route': 'ListGrade' },
+        { 'title': 'Sample From KKSK', 'route': 'ListSampleFromAdmin' }, { 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Request Sample', 'route': 'ListRequestSample' }];
 
     const brokerRoutes = [{ 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Sample From Admin', 'route': 'ListSampleFromAdmin' },{ 'title': 'Request Sample', 'route': 'ListRequestSample' }];    
     

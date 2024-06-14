@@ -7,20 +7,19 @@ import { padding2, paddingHorizontal1, paddingHorizontal2, paddingVertical1, pad
 import { Text } from '@rneui/base';
 import { get } from '../../components/apiComponent';
 
-function RequestSampleComponent({ defaultValue, minid, index, deleteIndex, setFormData, grade }): React.JSX.Element {
+function WandAdderComponent({ defaultValue, minid, index, deleteIndex, setFormData, grade }): React.JSX.Element {
 
     const [data, setData] = useState(defaultValue);
     const [selectedBrand, setselectedBrand] = useState();
 
     useEffect(() => {
-        console.log('====================================');
-        console.log(grade);
-        console.log('====================================');
+       console.log('====================================');
+       console.log(grade);
+       console.log('====================================');
     }, [])
     useEffect(() => {
         setFormData(data)
     }, [data])
-
 
 
     return (
@@ -41,10 +40,10 @@ function RequestSampleComponent({ defaultValue, minid, index, deleteIndex, setFo
                     setData((previousState) => (
                         { ...previousState, grade: event }
                     ))
-                }} />
+                }} />              
             </View>
         </View>
     );
 }
 
-export default RequestSampleComponent;
+export default WandAdderComponent;
