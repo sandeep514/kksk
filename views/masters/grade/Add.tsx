@@ -33,7 +33,7 @@ function AddGrade({ navigation }): React.JSX.Element {
                     setError(res.data.message)
                 } else {
                     ShowToast("wand added successfully");
-                    // navigation.navigate('Listwand');
+                    navigation.navigate('ListGrade');
                 }
 
             }).catch((err) => {

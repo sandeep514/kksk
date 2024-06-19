@@ -25,9 +25,6 @@ import { useFocusEffect } from '@react-navigation/native';
 import DropdownComponent from '../../components/DropdownComponent';
 
 function ListUser({ navigation }): React.JSX.Element {
-
-
-
     useFocusEffect(useCallback(() => {
         getSubQualityMasterList();
     }, []));
@@ -39,18 +36,20 @@ function ListUser({ navigation }): React.JSX.Element {
 
     const getSubQualityMasterList = () => {
         setLoader(true)
+
         get('list/user').then((res) => {
             setUser(res.data.data.user)
             setRole(res.data.data.role)
-            console.log(res.data.data.role)
         }).catch((err) => {
 
         }).finally(() => {
             setLoader(false)
         })
+
     }
+
     const Item = ({ item }: ItemProps) => (
-        <Pressable onPress={() => { navigation.navigate('PurchaseOrderView', { details: item }) }} style={[styles.item, { borderRadius: 10, borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingHorizontal5, paddingVertical1]}>
+        <Pressable onPress={() => { navigation.navigate('EditUser', { details: item }) }} style={[styles.item, { borderRadius: 10, borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingHorizontal5, paddingVertical1]}>
             <Text style={[styles.title, h3, SemiBold]}>{item?.name}</Text>
         </Pressable>
     );
@@ -61,7 +60,7 @@ function ListUser({ navigation }): React.JSX.Element {
                     <ScrollView>
                         <View style={{}}>
                             <View >
-                                
+
                                 <DropdownComponent items={role} placeholder={'User Role'} listname={'role_name'} selectedItem={(event, index) => {
                                     setSelectedRole(event.id)
                                 }} />
@@ -76,6 +75,10 @@ function ListUser({ navigation }): React.JSX.Element {
                                     data={user[selectedRole]}
                                     renderItem={({ item }) => <Item item={item} />}
                                     keyExtractor={item => item.id}
+                                // refreshing={true}
+                                // onRefresh={() => {
+                                //     getSubQualityMasterList()
+                                // }}
                                 />
 
                             </View>

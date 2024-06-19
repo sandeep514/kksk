@@ -48,7 +48,7 @@ function ListSubQuality({ navigation }): React.JSX.Element {
         })
     }
     const Item = ({ item }: ItemProps) => (
-        <Pressable onPress={() => { navigation.navigate('PurchaseOrderView', { details: item }) }} style={[styles.item, { borderRadius: 10, borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingHorizontal5, paddingVertical1]}>
+        <Pressable onPress={() => { navigation.navigate('EditSubQuality', { details: item }) }} style={[styles.item, { borderRadius: 10, borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingHorizontal5, paddingVertical1]}>
             <Text style={[styles.title, h3, SemiBold]}>{item?.form_name}</Text>
         </Pressable>
     );

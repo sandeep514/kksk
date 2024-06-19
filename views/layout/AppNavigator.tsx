@@ -33,26 +33,31 @@ import SampleFromAdmin from '../SampleFromAdmin/Index';
 import SampleFromAdminView from '../SampleFromAdmin/View';
 import ListSampleFromAdmin from '../SampleFromAdmin/List';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import EditUser from '../masters/User/Edit';
+import EditQuality from '../masters/qualityMaster/Edit';
+import EditMisc from '../masters/misc/Edit';
+import EditGrade from '../masters/grade/EditGrade';
+import EditSubQuality from '../masters/subQualityMaster/Edit';
 
 
 const Stack = createNativeStackNavigator();
 
 function AppNavigator(): React.JSX.Element {
-const [ initialRoute , setInitialRoute] = useState();
-	useEffect(() => {
-		AsyncStorage.getItem('userDetails').then((res) => {
-			console.log('initial route')
+    const [initialRoute, setInitialRoute] = useState();
+    useEffect(() => {
+        AsyncStorage.getItem('userDetails').then((res) => {
+            console.log('initial route')
             console.log(res)
             if (res != null) {
-                setInitialRoute('Dashboard')                
+                setInitialRoute('Dashboard')
             } else {
                 setInitialRoute('Login')
             }
-		}).catch((err) => {
-			console.log(err)
-			setInitialRoute('Login')
-		}) 
-	} , [])
+        }).catch((err) => {
+            console.log(err)
+            setInitialRoute('Login')
+        })
+    }, [])
     return (
         (initialRoute != undefined) ?
             <Stack.Navigator initialRouteName={initialRoute} screenOptions={{ headerShown: false }}>
@@ -67,18 +72,23 @@ const [ initialRoute , setInitialRoute] = useState();
 
                 <Stack.Screen name="ListQuality" component={ListQuality} />
                 <Stack.Screen name="AddQuality" component={AddQuality} />
+                <Stack.Screen name="EditQuality" component={EditQuality} />
 
                 <Stack.Screen name="ListMisc" component={listMisc} />
                 <Stack.Screen name="AddMisc" component={AddMisc} />
+                <Stack.Screen name="EditMisc" component={EditMisc} />
 
                 <Stack.Screen name="ListGrade" component={listGrade} />
                 <Stack.Screen name="AddGrade" component={AddGrade} />
+                <Stack.Screen name="EditGrade" component={EditGrade} />
 
                 <Stack.Screen name="ListSubQuality" component={ListSubQuality} />
                 <Stack.Screen name="AddSubQuality" component={AddSubQuality} />
+                <Stack.Screen name="EditSubQuality" component={EditSubQuality} />
 
                 <Stack.Screen name="ListUser" component={ListUser} />
                 <Stack.Screen name="AddUser" component={AddUser} />
+                <Stack.Screen name="EditUser" component={EditUser} />
 
 
                 <Stack.Screen name="PriceEnquiry" component={PriceEnquiry} />
@@ -98,8 +108,8 @@ const [ initialRoute , setInitialRoute] = useState();
             </Stack.Navigator>
             :
             null
-        
-       
+
+
     );
 }
 

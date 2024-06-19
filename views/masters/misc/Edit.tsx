@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, ScrollView, Pressable, ActivityIndicator } from 'react-native';
 
 
-import { Bold, h3, padding1, paddingBottom1, paddingHorizontal15, primaryColor, secondryButton } from '../../../res/assets/css/style';
+import { Bold, h3, padding1, paddingBottom1, paddingHorizontal15, primaryColor, secondryBackgroundColor, secondryButton } from '../../../res/assets/css/style';
 import { Text } from '@rneui/base';
 import { ShowToast, post } from '../../components/apiComponent';
 import Layout from '../../layout/Layout';
@@ -11,47 +11,44 @@ import InputComponent from '../../components/InputComponent/Index';
 import { useFocusEffect } from '@react-navigation/native';
 
 
-function AddUser({ navigation, route }): React.JSX.Element {
+function EditMisc({ navigation, route }): React.JSX.Element {
+
+    const [misc, setMisc] = useState('');
+    const [error, setError] = useState('');
     const [loader, setLoader] = useState(false);
 
-    const [role, setRole] = useState();
-    const [userRole, setUserRole] = useState();
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [mobile, setMobile] = useState();
-    const [address, setAddress] = useState();
-    const [gstNo, setGstNo] = useState();
-
-    const [error, setError] = useState('');
-
     useFocusEffect(useCallback(() => {
-        setRole(route.params.role)
-    }, []));
-
-    const saveUser = () => {
+        setMisc(route?.params?.details?.misc)
+    }, []))
+    const submitPurchaseOrder = () => {
         setError('');
-        if (name && email && mobile && address) {
+        if (misc.length > 0) {
             setLoader(true)
             let postedData = {
-                'name': name, 'email': email, 'mobile': mobile, 'address': address, 'role': userRole, 'gst_no': gstNo
+                'id': route.params.details?.id,
+                'misc': misc
             };
 
             // POST Method
-            post('create/user', (postedData)).then((res) => {
+            post('update/misc', (postedData)).then((res) => {
+                console.log('res')
+                console.log(res)
                 if (res.data.status == 'error') {
                     setError(res.data.message)
                 } else {
-                    ShowToast(res.data.message);
-                    navigation.navigate('ListUser');
+                    ShowToast("Misc added successfully");
+                    navigation.navigate('ListMisc');
                 }
+
             }).catch((err) => {
+                setError(err.data.message);
                 console.log('err')
-                setError(err.data.message)
+                console.log(err)
             }).finally(() => {
                 setLoader(false)
             })
         } else {
-            setError('Require fields are missing.');
+            console.log('Require fields are missing.');
         }
     }
 
@@ -61,19 +58,11 @@ function AddUser({ navigation, route }): React.JSX.Element {
                 <View>
                     <View style={{}}>
                         <ScrollView>
-                            <DropdownComponent items={role} placeholder={'Role'} listname={'role_name'} selectedItem={(event, index) => {
-                                setUserRole(event.id)
-                            }} />
+                            {/* <DropdownComponent items={[{ 'id': 1, 'name': 'basmati' }, { 'id': 2, 'name': 'non-basmati' }]} placeholder={riceType} listname={'name'} selectedItem={(event, index) => {
+                                setRiceType(event.name)
+                            }} /> */}
 
-                            <InputComponent placeholder={'Name'} onChange={(value) => { setName(value) }} />
-
-                            <InputComponent placeholder={'Email'} onChange={(value) => { setEmail(value) }} />
-
-                            <InputComponent placeholder={'Mobile'} onChange={(value) => { setMobile(value) }} />
-
-                            <InputComponent placeholder={'Address'} onChange={(value) => { setAddress(value) }} />
-
-                            <InputComponent placeholder={'GST'} onChange={(value) => { setGstNo(value) }} />
+                            <InputComponent placeholder={'Misc'} value={misc} onChange={(value) => { setMisc(value) }} />
 
                             {(error.length > 0) ?
                                 <View>
@@ -83,9 +72,8 @@ function AddUser({ navigation, route }): React.JSX.Element {
                             }
 
                             <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
-
                                 {(!loader) ?
-                                    <Pressable onPress={() => { saveUser() }} style={[{}, secondryButton, paddingHorizontal15]}>
+                                    <Pressable onPress={() => { submitPurchaseOrder() }} style={[{}, secondryButton, paddingHorizontal15]}>
                                         <Text style={[{ color: primaryColor }, h3, Bold]}>Submit</Text>
                                     </Pressable>
                                     :
@@ -93,8 +81,8 @@ function AddUser({ navigation, route }): React.JSX.Element {
                                         <Text style={[{ color: primaryColor }, h3, Bold]}><ActivityIndicator /></Text>
                                     </View>
                                 }
-
                             </View>
+
                         </ScrollView>
                     </View>
                 </View>
@@ -103,4 +91,4 @@ function AddUser({ navigation, route }): React.JSX.Element {
     );
 }
 
-export default AddUser;
+export default EditMisc;

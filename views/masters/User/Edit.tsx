@@ -11,21 +11,33 @@ import InputComponent from '../../components/InputComponent/Index';
 import { useFocusEffect } from '@react-navigation/native';
 
 
-function AddUser({ navigation, route }): React.JSX.Element {
+function EditUser({ navigation, route }): React.JSX.Element {
     const [loader, setLoader] = useState(false);
 
     const [role, setRole] = useState();
     const [userRole, setUserRole] = useState();
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [mobile, setMobile] = useState();
-    const [address, setAddress] = useState();
-    const [gstNo, setGstNo] = useState();
+    const [userid, setUserId] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [mobile, setMobile] = useState('');
+    const [address, setAddress] = useState('');
+    const [gstNo, setGstNo] = useState('');
 
     const [error, setError] = useState('');
+    const [data, setData] = useState();
 
     useFocusEffect(useCallback(() => {
-        setRole(route.params.role)
+        // setRole(route.params.role)
+        setData(route.params.details)
+        console.log("--------------");
+        console.log(route.params.details)
+
+        setName(route.params.details?.name);
+        setEmail(route.params.details?.email);
+        setMobile(route.params.details?.mobile);
+        setAddress(route.params.details?.address);
+        setGstNo(route.params.details?.gst_no);
+        setUserRole(route.params.details?.role);
     }, []));
 
     const saveUser = () => {
@@ -33,11 +45,12 @@ function AddUser({ navigation, route }): React.JSX.Element {
         if (name && email && mobile && address) {
             setLoader(true)
             let postedData = {
-                'name': name, 'email': email, 'mobile': mobile, 'address': address, 'role': userRole, 'gst_no': gstNo
+                'id': data?.id, 'name': name, 'email': email, 'mobile': mobile, 'address': address, 'role': userRole, 'gst_no': gstNo
             };
 
             // POST Method
-            post('create/user', (postedData)).then((res) => {
+            post('update/user', (postedData)).then((res) => {
+                console.log(res)
                 if (res.data.status == 'error') {
                     setError(res.data.message)
                 } else {
@@ -46,6 +59,7 @@ function AddUser({ navigation, route }): React.JSX.Element {
                 }
             }).catch((err) => {
                 console.log('err')
+                console.log(err)
                 setError(err.data.message)
             }).finally(() => {
                 setLoader(false)
@@ -56,25 +70,21 @@ function AddUser({ navigation, route }): React.JSX.Element {
     }
 
     return (
-        <Layout >
+        <Layout>
             <View>
                 <View>
                     <View style={{}}>
                         <ScrollView>
-                            <DropdownComponent items={role} placeholder={'Role'} listname={'role_name'} selectedItem={(event, index) => {
+                            {/* <DropdownComponent defaultValue={ } items={role} placeholder={'Role'} listname={'role_name'} selectedItem={(event, index) => {
                                 setUserRole(event.id)
-                            }} />
+                            }} /> */}
 
-                            <InputComponent placeholder={'Name'} onChange={(value) => { setName(value) }} />
-
-                            <InputComponent placeholder={'Email'} onChange={(value) => { setEmail(value) }} />
-
-                            <InputComponent placeholder={'Mobile'} onChange={(value) => { setMobile(value) }} />
-
-                            <InputComponent placeholder={'Address'} onChange={(value) => { setAddress(value) }} />
-
-                            <InputComponent placeholder={'GST'} onChange={(value) => { setGstNo(value) }} />
-
+                            <InputComponent value={data?.role_rel?.role_name} placeholder={'Role'} editable={false} />
+                            <InputComponent value={name} placeholder={'Name'} onChange={(value) => { setName(value) }} />
+                            <InputComponent value={email} placeholder={'Email'} onChange={(value) => { setEmail(value) }} />
+                            <InputComponent value={mobile} placeholder={'Mobile'} onChange={(value) => { setMobile(value) }} />
+                            <InputComponent value={address} placeholder={'Address'} onChange={(value) => { setAddress(value) }} />
+                            <InputComponent value={gstNo} placeholder={'GST'} onChange={(value) => { setGstNo(value) }} />
                             {(error.length > 0) ?
                                 <View>
                                     <Text style={[{ color: 'red', textAlign: 'center' }, h3, paddingBottom1]}>{error}</Text>
@@ -103,4 +113,4 @@ function AddUser({ navigation, route }): React.JSX.Element {
     );
 }
 
-export default AddUser;
+export default EditUser;

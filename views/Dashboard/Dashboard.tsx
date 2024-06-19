@@ -24,23 +24,23 @@ function Dashboard({ navigation }): React.JSX.Element {
         }).catch((err) => {
 
         })
-    } , []))
+    }, []))
     useEffect(() => {
-        
-        
+
+
     }, [])
 
-    const adminRoutes = [ { 'title': 'Quality Master', 'route': 'ListQuality' },
-        { 'title': 'Sub Quality Master', 'route': 'ListSubQuality' },
-        { 'title': 'User Master', 'route': 'ListUser' },
-        { 'title': 'Misc Master', 'route': 'ListMisc' },
-        { 'title': 'Grade Master', 'route': 'ListGrade' },
-        { 'title': 'Sample From KKSK', 'route': 'ListSampleFromAdmin' }, { 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Request Sample', 'route': 'ListRequestSample' }];
+    const adminRoutes = [{ 'title': 'Quality Master', 'route': 'ListQuality' },
+    { 'title': 'Sub Quality Master', 'route': 'ListSubQuality' },
+    { 'title': 'User Master', 'route': 'ListUser' },
+    { 'title': 'Misc Master', 'route': 'ListMisc' },
+    { 'title': 'Grade Master', 'route': 'ListGrade' },
+    { 'title': 'Sample From KKSK', 'route': 'ListSampleFromAdmin' }, { 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Request Sample', 'route': 'ListRequestSample' }];
 
-    const brokerRoutes = [{ 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Sample From Admin', 'route': 'ListSampleFromAdmin' },{ 'title': 'Request Sample', 'route': 'ListRequestSample' }];    
-    
-    
-    
+    const brokerRoutes = [{ 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Sample From Admin', 'route': 'ListSampleFromAdmin' }, { 'title': 'Request Sample', 'route': 'ListRequestSample' }];
+
+
+
 
     return (
         <Layout >
@@ -53,8 +53,8 @@ function Dashboard({ navigation }): React.JSX.Element {
                         </View>
                         {(userDetails?.role == 2) ?
                             Object.values(adminRoutes).map(function (value, index) {
-                                return ( <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Pressable onPress={() => { navigation.navigate(value.route) }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
+                                return (<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Pressable onPress={() => { navigation.navigate(value.route) }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4, width: '100%' }, marginBottom2, paddingVertical2]}>
                                         <Text style={[{ color: '#fff' }, h3, SemiBold]}>{value.title}</Text>
                                     </Pressable>
                                 </View>)
@@ -64,8 +64,8 @@ function Dashboard({ navigation }): React.JSX.Element {
                         }
                         {(userDetails?.role == 7) ?
                             Object.values(brokerRoutes).map(function (value, index) {
-                                return ( <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Pressable onPress={() => { navigation.navigate(value.route) }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
+                                return (<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Pressable onPress={() => { navigation.navigate(value.route) }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4, width: '100%' }, marginBottom2, paddingVertical2]}>
                                         <Text style={[{ color: '#fff' }, h3, SemiBold]}>{value.title}</Text>
                                     </Pressable>
                                 </View>)

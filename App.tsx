@@ -17,12 +17,13 @@ const Drawer = createDrawerNavigator();
 import messaging from '@react-native-firebase/messaging';
 import { post } from './views/components/apiComponent';
 import { Notifications } from 'react-native-notifications';
+import EditUser from './views/masters/User/Edit';
 
 function App(): React.JSX.Element {
 	const isDarkMode = useColorScheme() === 'dark';
 	useEffect(() => {
 		getFMNToken()
-	} , [])
+	}, [])
 	async function getFMNToken() {
 		console.log("lmlk");
 		let fcmToken = await AsyncStorage.getItem('fcmToken');
@@ -119,33 +120,28 @@ function App(): React.JSX.Element {
 	return (
 
 		<NavigationContainer>
-				<Drawer.Navigator screenOptions={{ headerShown: false }}>
-					<Drawer.Screen name="AppNavigator" component={AppNavigator} />
-					<Drawer.Screen name="Quality Master" component={ListQuality} />
-					<Drawer.Screen name="Sub Quality Master" component={ListSubQuality} />
-					<Drawer.Screen name="User Master" component={ListUser} />
-					<Drawer.Screen name="Misc Master" component={ListMisc} />
-					<Drawer.Screen name="Grade Master" component={ListGrade} />
-					{/* <Drawer.Screen name="Price Enquiry" component={ListPriceEnquiries} /> */}
-					<Drawer.Screen name="Sample Request" component={ListRequestSample} />
-					{/* <Drawer.Screen name="Sample Request" component={adminappsample} /> */}
+			<Drawer.Navigator screenOptions={{ headerShown: false }}>
+				<Drawer.Screen name="AppNavigator" component={AppNavigator} />
+				<Drawer.Screen name="Quality Master" component={ListQuality} />
+				<Drawer.Screen name="Sub Quality Master" component={ListSubQuality} />
+				<Drawer.Screen name="User Master" component={ListUser} />
+				<Drawer.Screen name="User Edit Master" component={EditUser} />
+				<Drawer.Screen name="Misc Master" component={ListMisc} />
+				<Drawer.Screen name="Grade Master" component={ListGrade} />
+				{/* <Drawer.Screen name="Price Enquiry" component={ListPriceEnquiries} /> */}
+				<Drawer.Screen name="Sample Request" component={ListRequestSample} />
 
+				{/* <Drawer.Screen name="Sample Request" component={adminappsample} /> */}
+				{/* <Drawer.Screen name="Home" component={Dashboard} /> */}
+				{/* <Drawer.Screen name="Purchase" component={Purchase} /> */}
 
+				{/* <Drawer.Screen name="PriceEnquiryView" component={PriceEnquiryView} />
+				<Drawer.Screen name="ListPriceEnquiry" component={ListPriceEnquiry} />
+				<Drawer.Screen name="RequestSample" component={RequestSample} />
+				<Drawer.Screen name="RequestSampleView" component={RequestSampleView} />
+				<Drawer.Screen name="ListRequestSample" component={ListRequestSample} /> */}
 
-
-					{/* <Drawer.Screen name="Home" component={Dashboard} /> */}
-
-
-					{/* <Drawer.Screen name="Purchase" component={Purchase} /> */}
-					{/* <Drawer.Screen name="PriceEnquiryView" component={PriceEnquiryView} />
-					<Drawer.Screen name="ListPriceEnquiry" component={ListPriceEnquiry} />
-
-
-					<Drawer.Screen name="RequestSample" component={RequestSample} />
-					<Drawer.Screen name="RequestSampleView" component={RequestSampleView} />
-					<Drawer.Screen name="ListRequestSample" component={ListRequestSample} /> */}
-				</Drawer.Navigator>
-			
+			</Drawer.Navigator>
 		</NavigationContainer>
 	);
 }

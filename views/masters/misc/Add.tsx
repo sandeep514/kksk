@@ -33,7 +33,7 @@ function AddMisc({ navigation }): React.JSX.Element {
                     setError(res.data.message)
                 } else {
                     ShowToast("Misc added successfully");
-                    // navigation.navigate('Listmisc');
+                    navigation.navigate('Listmisc');
                 }
 
             }).catch((err) => {
