@@ -34,7 +34,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
         getPartyName();
         getRiceWand();
     }, [])
-    
+
     const getRiceName = () => {
         //get/rice/name
 
@@ -45,7 +45,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
             console.log(err)
         })
     }
-    
+
     const getMiscData = () => {
         //get/packing/data
 
@@ -55,7 +55,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
             console.log(err)
         })
     }
-    
+
     const getPartyName = () => {
         get('get/party/name').then((res) => {
             setPartiesList(res.data.parties);
@@ -74,7 +74,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
 
     const submitSampleFromAdmin = () => {
         setError('')
-        
+
         if (data && Object.keys(data).length == 5) {
             setLoader(true)
             // POST Method
@@ -82,7 +82,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
             data['party'] = Party;
             data['grade'] = formComponentCount;
 
-            
+
             post('add/sample/from/admin', (data)).then((res) => {
                 ShowToast('sample requested successfully')
                 navigation.navigate('ListPurchase');
@@ -94,8 +94,8 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
         } else {
             setError('required fields are missing')
         }
-            
-       
+
+
     }
     const deleteRow = (deletedMinid) => {
         let minidToRemove = deletedMinid;
@@ -116,7 +116,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
         setFormComponentCount([...formComponentCount, { 'minid': generateRandomNumber() }]);
 
     }
-    
+
     return (
         <Layout >
             <View>
@@ -127,7 +127,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
 
                                 <DropdownComponent defaultValue={Party?.name} items={PartyList} placeholder={'Party Name'} listname={'name'} selectedItem={(event, index) => {
                                     setParty(event)
-                                    
+
                                 }} />
                                 <DropdownComponent defaultValue={data?.riceType?.name} items={[{ 'id': 0, 'name': 'Select any' }, { 'id': 1, 'name': 'basmati' }, { 'id': 2, 'name': 'non-basmati' }]} placeholder={'Rice Type'} listname={'name'} selectedItem={(event, index) => {
                                     setData((previousState) => (
@@ -141,7 +141,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
                                     ))
                                 }} />
 
-                                <DropdownComponent defaultValue={data?.riceForm?.form_name} items={(data?.riceType) ? riceForm[data?.riceType?.name] : {}} placeholder={'Sub Quality Name'} listname={'form_name'} selectedItem={(event, index) => {
+                                <DropdownComponent defaultValue={data?.riceForm?.form_name} items={(data?.riceType) ? riceForm[data?.riceType?.name] : {}} placeholder={'Process'} listname={'form_name'} selectedItem={(event, index) => {
                                     setData((previousState) => (
                                         { ...previousState, riceForm: event }
                                     ))
@@ -173,7 +173,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
                                 </Pressable>
                             </View>
                         </View>
-                          
+
                         <InputComponent placeholder={'Remarks'} onChange={(value) => { setAdditionalInfo(value) }} />
                         {(error.length > 0) ?
                             <View>

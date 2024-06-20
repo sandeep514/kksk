@@ -55,23 +55,23 @@ function ListRequestSample({ navigation }): React.JSX.Element {
     }
     const Item = ({ item }: ItemProps) => (
         <View style={[{ borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingVertical1]}>
-            <Pressable onPress={() => { navigation.navigate('PurchaseOrderView', { details: item }) }} style={[styles.item, { borderRadius: 10,  }, paddingHorizontal5]}>
+            <Pressable onPress={() => { navigation.navigate('PurchaseOrderView', { details: item }) }} style={[styles.item, { borderRadius: 10, }, paddingHorizontal5]}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Enquiry No:</Text>
-                    <Text style={[styles.title, h2, { color: '#000' }]}> 100{item.id}</Text>
+                    <Text style={[styles.title, h3, { color: '#000' }]}> 100{item.id}</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Enquiry of:</Text>
-                    <Text style={[styles.title, h2, { color: '#000' }]}> {item?.rice_name_rel?.name} {item?.rice_form_rel?.form_name}</Text>
+                    <Text style={[styles.title, h3, { color: '#000' }]}> {item?.rice_name_rel?.name} {item?.rice_form_rel?.form_name}</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Enquiry on:</Text>
-                    <Text style={[styles.title, h2, { color: '#000' }]}> {convertedToDateTime(item?.created_at)} </Text>
+                    <Text style={[styles.title, h3, { color: '#000' }]}> {convertedToDateTime(item?.created_at)} </Text>
                 </View>
                 {(userRole == 2) ?
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Party:</Text>
-                        <Text style={[styles.title, h2, { color: '#000' }]}> {item?.party?.companyname} </Text>
+                        <Text style={[styles.title, h3, { color: '#000' }]}> {item?.party?.companyname} </Text>
                     </View>
                     :
                     null
@@ -80,14 +80,14 @@ function ListRequestSample({ navigation }): React.JSX.Element {
             {(item?.status == 1) ?
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
                     <Pressable onPress={() => { updateStatus(item?.id, 2) }} style={[{ backgroundColor: 'lightgreen', width: '49%', borderRadius: 20 }, paddingVertical1]}>
-                        <Text style={[h2, { textAlign: 'center', color: '#fff' }, SemiBold]}>Accept</Text>
+                        <Text style={[h3, { textAlign: 'center', color: '#fff' }, SemiBold]}>Accept</Text>
                     </Pressable>
 
                     <View style={[{ width: '1%' }]}>
                     </View>
 
                     <Pressable onPress={() => { updateStatus(item?.id, 3) }} style={[{ backgroundColor: 'red', width: '50%', borderRadius: 20 }, paddingVertical1]}>
-                        <Text style={[h2, { textAlign: 'center', color: '#fff' }, SemiBold]}>Reject</Text>
+                        <Text style={[h3, { textAlign: 'center', color: '#fff' }, SemiBold]}>Reject</Text>
                     </Pressable>
                 </View>
                 :

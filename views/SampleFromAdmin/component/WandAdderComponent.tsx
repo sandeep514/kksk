@@ -13,9 +13,9 @@ function WandAdderComponent({ defaultValue, minid, index, deleteIndex, setFormDa
     const [selectedBrand, setselectedBrand] = useState();
 
     useEffect(() => {
-       console.log('====================================');
-       console.log(grade);
-       console.log('====================================');
+        console.log('====================================');
+        console.log(grade);
+        console.log('====================================');
     }, [])
     useEffect(() => {
         setFormData(data)
@@ -40,7 +40,7 @@ function WandAdderComponent({ defaultValue, minid, index, deleteIndex, setFormDa
                     setData((previousState) => (
                         { ...previousState, grade: event }
                     ))
-                }} />              
+                }} />
             </View>
         </View>
     );

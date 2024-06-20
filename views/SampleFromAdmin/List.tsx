@@ -30,22 +30,24 @@ function ListSampleFromAdmin({ navigation }): React.JSX.Element {
             let userId = (JSON.parse(res)?.id)
             setUserRole((JSON.parse(res)?.role))
             get('list/sample/from/admin/' + userId).then((res) => {
+
                 console.log(res.data.data)
+
                 setData(res.data.data)
             }).catch((err) => {
                 console.log(err)
             })
         }).catch((err) => {
             console.log(err)
-        }) 
-        
+        })
+
     }
     const convertedToDateTime = (date) => {
         return new Date(date).toLocaleString()
     }
 
     const updateStatus = (itemId, status) => {
-        post('update/sample/from/admin/status' , {id: itemId , status : status}).then((res) => {
+        post('update/sample/from/admin/status', { id: itemId, status: status }).then((res) => {
             getSampleFromAdmin();
         }).catch((err) => {
 
@@ -53,23 +55,23 @@ function ListSampleFromAdmin({ navigation }): React.JSX.Element {
     }
     const Item = ({ item }: ItemProps) => (
         <View style={[{ borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingVertical1]}>
-            <Pressable onPress={() => { navigation.navigate('PurchaseOrderView', { details: item }) }} style={[styles.item, { borderRadius: 10}, paddingHorizontal5, ]}>
+            <Pressable onPress={() => { navigation.navigate('PurchaseOrderView', { details: item }) }} style={[styles.item, { borderRadius: 10 }, paddingHorizontal5,]}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Enquiry No:</Text>
-                    <Text style={[styles.title, h2, { color: '#000' }]}> 100{item.id}</Text>
+                    <Text style={[styles.title, h3, { color: '#000' }]}> 100{item.id}</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Enquiry of:</Text>
-                    <Text style={[styles.title, h2, { color: '#000' }]}> {item?.rice_name_rel?.name} {item?.rice_form_rel?.form_name}</Text>
+                    <Text style={[styles.title, h3, { color: '#000' }]}> {item?.rice_name_rel?.name} {item?.rice_form_rel?.form_name}</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Enquiry on:</Text>
-                    <Text style={[styles.title, h2, { color: '#000' }]}> {convertedToDateTime(item?.created_at)} </Text>
+                    <Text style={[styles.title, h3, { color: '#000' }]}> {convertedToDateTime(item?.created_at)} </Text>
                 </View>
                 {(userRole == 2) ?
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Party:</Text>
-                        <Text style={[styles.title, h2, { color: '#000' }]}> {item?.party?.companyname} </Text>
+                        <Text style={[styles.title, h3, { color: '#000' }]}> {item?.party?.companyname} </Text>
                     </View>
                     :
                     null
@@ -80,21 +82,21 @@ function ListSampleFromAdmin({ navigation }): React.JSX.Element {
             {(item?.status == 1) ?
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
                     <Pressable onPress={() => { updateStatus(item?.id, 2) }} style={[{ backgroundColor: 'lightgreen', width: '49%', borderRadius: 20 }, paddingVertical1]}>
-                        <Text style={[h2, { textAlign: 'center', color: '#fff' }, SemiBold]}>Accept</Text>
+                        <Text style={[h3, { textAlign: 'center', color: '#fff' }, SemiBold]}>Accept</Text>
                     </Pressable>
 
                     <View style={[{ width: '1%' }]}>
                     </View>
 
                     <Pressable onPress={() => { updateStatus(item?.id, 3) }} style={[{ backgroundColor: 'red', width: '50%', borderRadius: 20 }, paddingVertical1]}>
-                        <Text style={[h2, { textAlign: 'center', color: '#fff' }, SemiBold]}>Reject</Text>
+                        <Text style={[h3, { textAlign: 'center', color: '#fff' }, SemiBold]}>Reject</Text>
                     </Pressable>
-                </View>    
-            :
+                </View>
+                :
                 null
             }
             {(item?.status == 2) ?
-                <Text style={{textAlign: 'right' , color: 'green',fontWeight: 'bold'}}>Accepted</Text>
+                <Text style={{ textAlign: 'right', color: 'green', fontWeight: 'bold' }}>Accepted</Text>
                 :
                 null
             }
@@ -109,15 +111,15 @@ function ListSampleFromAdmin({ navigation }): React.JSX.Element {
         <Layout >
             <View style={[{ flex: 1 }]}>
                 <View style={{ position: 'relative', }}>
-                    <View style={{flexDirection: 'row'}}>
-                        <Pressable onPress={() => { setCurrentStatusList(1) }} style={[{ backgroundColor: (currentStatusList == 1)?secondryColor:primaryColor, width: '32%', borderRadius: 20 }, paddingVertical1]}>
-                            <Text style={{textAlign: 'center'}}>Pending</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Pressable onPress={() => { setCurrentStatusList(1) }} style={[{ backgroundColor: (currentStatusList == 1) ? secondryColor : primaryColor, width: '32%', borderRadius: 20 }, paddingVertical1]}>
+                            <Text style={{ textAlign: 'center' }}>Pending</Text>
                         </Pressable>
                         <Pressable onPress={() => { setCurrentStatusList(2) }} style={[{ backgroundColor: (currentStatusList == 2) ? secondryColor : primaryColor, width: '32%', borderRadius: 20 }, paddingVertical1]}>
-                            <Text style={{textAlign: 'center'}}>Accepted</Text>
+                            <Text style={{ textAlign: 'center' }}>Accepted</Text>
                         </Pressable>
                         <Pressable onPress={() => { setCurrentStatusList(3) }} style={[{ backgroundColor: (currentStatusList == 3) ? secondryColor : primaryColor, width: '32%', borderRadius: 20 }, paddingVertical1]}>
-                            <Text style={{textAlign: 'center'}}>Rejected</Text>
+                            <Text style={{ textAlign: 'center' }}>Rejected</Text>
                         </Pressable>
                     </View>
                     <View style={{}}>
@@ -138,10 +140,10 @@ function ListSampleFromAdmin({ navigation }): React.JSX.Element {
                             <Text style={[{ color: primaryColor, }, mainHeader, {}]}><Icon name='add' color={primaryColor} /></Text>
                         </Pressable>
                     </View>
-                :
+                    :
                     null
                 }
-                
+
             </View>
         </Layout>
     );

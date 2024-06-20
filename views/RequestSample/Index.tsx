@@ -11,7 +11,7 @@ import RequestSampleComponent from './component/RequestSampleComponent';
 import { ShowToast, get, post } from '../components/apiComponent';
 import { ActivityIndicator } from 'react-native';
 
-function RequestSample({navigation}): React.JSX.Element {
+function RequestSample({ navigation }): React.JSX.Element {
     const generateRandomNumber = () => {
         return (Math.floor(Math.random() * 224245))
     }
@@ -61,13 +61,13 @@ function RequestSample({navigation}): React.JSX.Element {
             console.log(err)
         })
     }
-    
-    
+
+
     const submitRequestSample = () => {
         setError('')
         console.log('data');
         console.log(data);
-        
+
         console.log(Object.keys(data).length);
         if (Object.keys(data).length >= 5) {
             setLoader(true)
@@ -87,8 +87,8 @@ function RequestSample({navigation}): React.JSX.Element {
         } else {
             setError('required fields are missing')
         }
-            
-       
+
+
     }
     const deleteRow = (deletedMinid) => {
         let minidToRemove = deletedMinid;
@@ -128,7 +128,7 @@ function RequestSample({navigation}): React.JSX.Element {
                                     ))
                                 }} />
 
-                                <DropdownComponent defaultValue={data?.riceForm?.form_name} items={(data?.riceType) ? riceForm[data?.riceType?.name] : {}} placeholder={'Sub Quality Name'} listname={'form_name'} selectedItem={(event, index) => {
+                                <DropdownComponent defaultValue={data?.riceForm?.form_name} items={(data?.riceType) ? riceForm[data?.riceType?.name] : {}} placeholder={'Process'} listname={'form_name'} selectedItem={(event, index) => {
                                     setData((previousState) => (
                                         { ...previousState, riceForm: event }
                                     ))
@@ -160,7 +160,7 @@ function RequestSample({navigation}): React.JSX.Element {
                                 </Pressable>
                             </View>
                         </View>
-                          
+
                         <InputComponent placeholder={'Remarks'} onChange={(value) => { setAdditionalInfo(value) }} />
                         {(error.length > 0) ?
                             <View>
@@ -170,7 +170,7 @@ function RequestSample({navigation}): React.JSX.Element {
                         }
 
                         <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
-                            
+
 
                             {(!loader) ?
                                 <Pressable onPress={() => { submitRequestSample() }} style={[{}, secondryButton, paddingHorizontal15]}>

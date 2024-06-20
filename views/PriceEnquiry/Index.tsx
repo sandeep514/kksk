@@ -65,7 +65,7 @@ function RequestSample({ navigation }): React.JSX.Element {
                 console.log('port res');
                 console.log(res)
                 ShowToast('sample requested successfully')
-                // navigation.navigate('ListPurchase');
+                navigation.navigate('ListPriceEnquiries');
             }).catch((err) => {
                 setError('Something went wrong')
             }).finally(() => {
@@ -96,7 +96,7 @@ function RequestSample({ navigation }): React.JSX.Element {
                                     ))
                                 }} />
 
-                                <DropdownComponent defaultValue={data?.riceForm?.form_name} items={(data?.riceType) ? riceForm[data?.riceType?.name] : {}} placeholder={'Sub Quality Name'} listname={'form_name'} selectedItem={(event, index) => {
+                                <DropdownComponent defaultValue={data?.riceForm?.form_name} items={(data?.riceType) ? riceForm[data?.riceType?.name] : {}} placeholder={'Process Name'} listname={'form_name'} selectedItem={(event, index) => {
                                     setData((previousState) => (
                                         { ...previousState, riceForm: event }
                                     ))

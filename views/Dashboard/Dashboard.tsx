@@ -31,10 +31,10 @@ function Dashboard({ navigation }): React.JSX.Element {
     }, [])
 
     const adminRoutes = [{ 'title': 'Quality Master', 'route': 'ListQuality' },
-    { 'title': 'Sub Quality Master', 'route': 'ListSubQuality' },
+    { 'title': 'Process Master', 'route': 'ListProcess' },
     { 'title': 'User Master', 'route': 'ListUser' },
     { 'title': 'Misc Master', 'route': 'ListMisc' },
-    { 'title': 'Grade Master', 'route': 'ListGrade' },
+    { 'title': 'Sub Quality Master', 'route': 'ListSubQuality' },
     { 'title': 'Sample From KKSK', 'route': 'ListSampleFromAdmin' }, { 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Request Sample', 'route': 'ListRequestSample' }];
 
     const brokerRoutes = [{ 'title': 'Price Enquiry', 'route': 'ListPriceEnquiry' }, { 'title': 'Sample From Admin', 'route': 'ListSampleFromAdmin' }, { 'title': 'Request Sample', 'route': 'ListRequestSample' }];
@@ -87,8 +87,8 @@ function Dashboard({ navigation }): React.JSX.Element {
                                         </Pressable>
                                     </View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <Pressable onPress={() => { navigation.navigate('ListSubQuality') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
-                                            <Text style={[{ color: '#fff' }, h3, SemiBold]}>Sub Quality Master</Text>
+                                        <Pressable onPress={() => { navigation.navigate('ListProcess') }} style={[{ backgroundColor: secondryColor, borderRadius: 20, alignItems: 'center', elevation: 4 ,width: '100%'}, marginBottom2,paddingVertical2]}>
+                                            <Text style={[{ color: '#fff' }, h3, SemiBold]}>Process Master</Text>
                                         </Pressable>
                                     </View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

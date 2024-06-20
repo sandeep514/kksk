@@ -123,11 +123,11 @@ function App(): React.JSX.Element {
 			<Drawer.Navigator screenOptions={{ headerShown: false }}>
 				<Drawer.Screen name="AppNavigator" component={AppNavigator} />
 				<Drawer.Screen name="Quality Master" component={ListQuality} />
-				<Drawer.Screen name="Sub Quality Master" component={ListSubQuality} />
+				<Drawer.Screen name="Process Master" component={ListSubQuality} />
 				<Drawer.Screen name="User Master" component={ListUser} />
 				<Drawer.Screen name="User Edit Master" component={EditUser} />
 				<Drawer.Screen name="Misc Master" component={ListMisc} />
-				<Drawer.Screen name="Grade Master" component={ListGrade} />
+				<Drawer.Screen name="Sub Quality Master" component={ListGrade} />
 				{/* <Drawer.Screen name="Price Enquiry" component={ListPriceEnquiries} /> */}
 				<Drawer.Screen name="Sample Request" component={ListRequestSample} />
 

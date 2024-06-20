@@ -11,7 +11,7 @@ import InputComponent from '../../components/InputComponent/Index';
 import { useFocusEffect } from '@react-navigation/native';
 
 
-function EditGrade({ navigation, route }): React.JSX.Element {
+function EditSubQuality({ navigation, route }): React.JSX.Element {
 
     const [wand, setWand] = useState('');
     const [error, setError] = useState('');
@@ -92,4 +92,4 @@ function EditGrade({ navigation, route }): React.JSX.Element {
     );
 }
 
-export default EditGrade;
+export default EditSubQuality;

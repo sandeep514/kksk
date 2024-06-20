@@ -11,7 +11,7 @@ import InputComponent from '../../components/InputComponent/Index';
 import { useFocusEffect } from '@react-navigation/native';
 
 
-function EditSubQuality({ navigation, route }): React.JSX.Element {
+function EditProcessQuality({ navigation, route }): React.JSX.Element {
 
 
 
@@ -44,7 +44,7 @@ function EditSubQuality({ navigation, route }): React.JSX.Element {
                     setError(res.data.message)
                 } else {
                     ShowToast("Sub quality updated successfully");
-                    navigation.navigate('ListSubQuality');
+                    navigation.navigate('ListProcessQuality');
                 }
             }).catch((err) => {
                 setError(err.data.message);
@@ -96,4 +96,4 @@ function EditSubQuality({ navigation, route }): React.JSX.Element {
     );
 }
 
-export default EditSubQuality;
+export default EditProcessQuality;

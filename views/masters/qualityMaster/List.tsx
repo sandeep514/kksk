@@ -81,7 +81,7 @@ function ListQuality({ navigation }): React.JSX.Element {
                 <Pressable onPress={() => {
                     setModalVisible(true)
                     setSelectedDeleteItem(item?.id)
-                }} style={[{ backgroundColor: 'red' }, paddingVertical1]}><Text style={[{}, h3, Bold, { color: 'red', textAlign: 'center', width: '100%' }]}>Delete</Text></Pressable>
+                }} style={[{}, paddingVertical1]}><Text style={[{}, h3, Bold, { color: 'red', textAlign: 'center', width: '100%' }]}>Delete</Text></Pressable>
             </View>
         </View>
     );

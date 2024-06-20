@@ -32,7 +32,7 @@ import { ShowToast, get } from '../../components/apiComponent';
 import { Icon } from '@rneui/base';
 import { useFocusEffect } from '@react-navigation/native';
 
-function ListGrade({ navigation }): React.JSX.Element {
+function ListSubQuality({ navigation }): React.JSX.Element {
 
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -148,7 +148,7 @@ function ListGrade({ navigation }): React.JSX.Element {
 
                 </View>
                 <View style={{ position: 'absolute', bottom: 0, right: 0 }}>
-                    <Pressable onPress={() => { navigation.navigate('AddGrade') }} style={[{ borderRadius: 100, padding: 15 }, secondryBackgroundColor]}>
+                    <Pressable onPress={() => { navigation.navigate('AddSubQuality') }} style={[{ borderRadius: 100, padding: 15 }, secondryBackgroundColor]}>
                         <Text style={[{ color: primaryColor, }, mainHeader, {}]}><Icon name='add' color={primaryColor} /></Text>
                     </Pressable>
                 </View>
@@ -188,4 +188,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ListGrade;
+export default ListSubQuality;

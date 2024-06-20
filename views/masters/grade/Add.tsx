@@ -10,7 +10,7 @@ import DropdownComponent from '../../components/DropdownComponent';
 import InputComponent from '../../components/InputComponent/Index';
 
 
-function AddGrade({ navigation }): React.JSX.Element {
+function AddSubQuality({ navigation }): React.JSX.Element {
 
     const [wand, setWand] = useState('');
     const [error, setError] = useState('');
@@ -33,7 +33,7 @@ function AddGrade({ navigation }): React.JSX.Element {
                     setError(res.data.message)
                 } else {
                     ShowToast("wand added successfully");
-                    navigation.navigate('ListGrade');
+                    navigation.navigate('ListSubQuality');
                 }
 
             }).catch((err) => {
@@ -87,4 +87,4 @@ function AddGrade({ navigation }): React.JSX.Element {
     );
 }
 
-export default AddGrade;
+export default AddSubQuality;

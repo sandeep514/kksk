@@ -10,7 +10,7 @@ import DropdownComponent from '../../components/DropdownComponent';
 import InputComponent from '../../components/InputComponent/Index';
 
 
-function AddSubQuality({ navigation }): React.JSX.Element {
+function AddProcess({ navigation }): React.JSX.Element {
 
 
 
@@ -37,7 +37,7 @@ function AddSubQuality({ navigation }): React.JSX.Element {
                     setError(res.data.message)
                 } else {
                     ShowToast("Sub quality added successfully");
-                    navigation.navigate('ListSubQuality');
+                    navigation.navigate('ListProcess');
                 }
             }).catch((err) => {
                 setError(err.data.message);
@@ -75,7 +75,7 @@ function AddSubQuality({ navigation }): React.JSX.Element {
                                     <Pressable onPress={() => { submitPurchaseOrder() }} style={[{}, secondryButton, paddingHorizontal15]}>
                                         <Text style={[{ color: primaryColor }, h3, Bold]}>Submit</Text>
                                     </Pressable>
-                                 :
+                                    :
                                     <View style={[{}, secondryButton, paddingHorizontal15]}>
                                         <Text style={[{ color: primaryColor }, h3, Bold]}><ActivityIndicator /></Text>
                                     </View>
@@ -89,4 +89,4 @@ function AddSubQuality({ navigation }): React.JSX.Element {
     );
 }
 
-export default AddSubQuality;
+export default AddProcess;

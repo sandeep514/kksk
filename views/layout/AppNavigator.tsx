@@ -31,13 +31,15 @@ import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import ListPriceEnquiries from '../PriceEnquiry/List';
 import SampleFromAdmin from '../SampleFromAdmin/Index';
 import SampleFromAdminView from '../SampleFromAdmin/View';
-import ListSampleFromAdmin from '../SampleFromAdmin/List';
+// import ListSampleFromAdmin from '../SampleFromAdmin/ListSampleFromAdmin';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import EditUser from '../masters/User/Edit';
 import EditQuality from '../masters/qualityMaster/Edit';
 import EditMisc from '../masters/misc/Edit';
 import EditGrade from '../masters/grade/EditGrade';
 import EditSubQuality from '../masters/subQualityMaster/Edit';
+import ListSampleFromAdmin from '../SampleFromAdmin/List';
 
 
 const Stack = createNativeStackNavigator();
@@ -78,13 +80,13 @@ function AppNavigator(): React.JSX.Element {
                 <Stack.Screen name="AddMisc" component={AddMisc} />
                 <Stack.Screen name="EditMisc" component={EditMisc} />
 
-                <Stack.Screen name="ListGrade" component={listGrade} />
-                <Stack.Screen name="AddGrade" component={AddGrade} />
-                <Stack.Screen name="EditGrade" component={EditGrade} />
+                <Stack.Screen name="ListSubQuality" component={listGrade} />
+                <Stack.Screen name="AddSubQuality" component={AddGrade} />
+                <Stack.Screen name="EditSubQuality" component={EditGrade} />
 
-                <Stack.Screen name="ListSubQuality" component={ListSubQuality} />
-                <Stack.Screen name="AddSubQuality" component={AddSubQuality} />
-                <Stack.Screen name="EditSubQuality" component={EditSubQuality} />
+                <Stack.Screen name="ListProcess" component={ListSubQuality} />
+                <Stack.Screen name="AddProcess" component={AddSubQuality} />
+                <Stack.Screen name="EditProcess" component={EditSubQuality} />
 
                 <Stack.Screen name="ListUser" component={ListUser} />
                 <Stack.Screen name="AddUser" component={AddUser} />

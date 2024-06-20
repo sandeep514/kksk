@@ -32,12 +32,12 @@ import { ShowToast, get } from '../../components/apiComponent';
 import { Icon } from '@rneui/base';
 import { useFocusEffect } from '@react-navigation/native';
 
-function ListSubQuality({ navigation }): React.JSX.Element {
+function ListProcess({ navigation }): React.JSX.Element {
 
 
 
     useFocusEffect(useCallback(() => {
-        getSubQualityMasterList();
+        getProcessList();
     }, []));
 
     const [basmati, setBasmati] = useState([]);
@@ -48,7 +48,7 @@ function ListSubQuality({ navigation }): React.JSX.Element {
     const [deleteLoader, setdeleteLoader] = useState(false);
     const [selectedDeleteItem, setSelectedDeleteItem] = useState();
 
-    const getSubQualityMasterList = () => {
+    const getProcessList = () => {
         setLoader(true)
         get('list/sub/qualities').then((res) => {
             setBasmati(res.data.data['basmati'])
@@ -65,7 +65,7 @@ function ListSubQuality({ navigation }): React.JSX.Element {
         get('delete/sub/qualities/' + deletedItemId).then((res) => {
             ShowToast('Item deleted successfully')
             setModalVisible(!modalVisible)
-            getSubQualityMasterList();
+            getProcessList();
         }).catch((err) => {
         }).finally(() => {
             setdeleteLoader(false)
@@ -74,7 +74,7 @@ function ListSubQuality({ navigation }): React.JSX.Element {
     const Item = ({ item }: ItemProps) => (
         <View style={{ flexDirection: 'row' }}>
             <View style={[{}, width80]}>
-                <Pressable onPress={() => { navigation.navigate('EditSubQuality', { details: item }) }} style={[styles.item, { borderRadius: 10, borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingHorizontal5, paddingVertical1]}>
+                <Pressable onPress={() => { navigation.navigate('EditProcess', { details: item }) }} style={[styles.item, { borderRadius: 10, borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingHorizontal5, paddingVertical1]}>
                     <Text style={[styles.title, h3, SemiBold]}>{item?.form_name}</Text>
                 </Pressable>
             </View >
@@ -82,7 +82,7 @@ function ListSubQuality({ navigation }): React.JSX.Element {
                 <Pressable onPress={() => {
                     setModalVisible(true)
                     setSelectedDeleteItem(item?.id)
-                }} style={[{ backgroundColor: 'red' }, paddingVertical1]}><Text style={[{}, h3, Bold, { color: 'red', textAlign: 'center', width: '100%' }]}>Delete</Text></Pressable>
+                }} style={[{}, paddingVertical1]}><Text style={[{}, h3, Bold, { color: 'red', textAlign: 'center', width: '100%' }]}>Delete</Text></Pressable>
             </View>
         </View >
     );
@@ -160,7 +160,7 @@ function ListSubQuality({ navigation }): React.JSX.Element {
 
                 </View>
                 <View style={{ position: 'absolute', bottom: 0, right: 0 }}>
-                    <Pressable onPress={() => { navigation.navigate('AddSubQuality') }} style={[{ borderRadius: 100, padding: 15 }, secondryBackgroundColor]}>
+                    <Pressable onPress={() => { navigation.navigate('AddProcess') }} style={[{ borderRadius: 100, padding: 15 }, secondryBackgroundColor]}>
                         <Text style={[{ color: primaryColor, }, mainHeader, {}]}><Icon name='add' color={primaryColor} /></Text>
                     </Pressable>
                 </View>
@@ -200,4 +200,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ListSubQuality;
+export default ListProcess;
