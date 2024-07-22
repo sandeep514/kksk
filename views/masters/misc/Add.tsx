@@ -33,7 +33,7 @@ function AddMisc({ navigation }): React.JSX.Element {
                     setError(res.data.message)
                 } else {
                     ShowToast("Misc added successfully");
-                    navigation.navigate('Listmisc');
+                    navigation.navigate('ListMisc');
                 }
 
             }).catch((err) => {
@@ -62,7 +62,7 @@ function AddMisc({ navigation }): React.JSX.Element {
 
                             {(error.length > 0) ?
                                 <View>
-                                    <Text style={[{ color: 'red', textAlign: 'center' }, h3, paddingBottom1]}>{error}</Text>
+                                    <Text style={[h3, paddingBottom1, { color: 'red', textAlign: 'center' }]}>{error}</Text>
                                 </View>
                                 : null
                             }

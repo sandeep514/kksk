@@ -30,9 +30,7 @@ function ListSampleFromAdmin({ navigation }): React.JSX.Element {
             let userId = (JSON.parse(res)?.id)
             setUserRole((JSON.parse(res)?.role))
             get('list/sample/from/admin/' + userId).then((res) => {
-
                 console.log(res.data.data)
-
                 setData(res.data.data)
             }).catch((err) => {
                 console.log(err)
@@ -69,9 +67,15 @@ function ListSampleFromAdmin({ navigation }): React.JSX.Element {
                     <Text style={[styles.title, h3, { color: '#000' }]}> {convertedToDateTime(item?.created_at)} </Text>
                 </View>
                 {(userRole == 2) ?
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Party:</Text>
-                        <Text style={[styles.title, h3, { color: '#000' }]}> {item?.party?.companyname} </Text>
+                    <View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Party:</Text>
+                            <Text style={[styles.title, h3, { color: '#000' }]}> {item?.party?.name} </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Party:</Text>
+                            <Text style={[styles.title, h3, { color: '#000' }]}> {item?.buyer_party_rel?.name} </Text>
+                        </View>
                     </View>
                     :
                     null

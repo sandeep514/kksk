@@ -22,6 +22,7 @@ function EditUser({ navigation, route }): React.JSX.Element {
     const [mobile, setMobile] = useState('');
     const [address, setAddress] = useState('');
     const [gstNo, setGstNo] = useState('');
+    const [password, setPassword] = useState();
 
     const [error, setError] = useState('');
     const [data, setData] = useState();
@@ -45,7 +46,7 @@ function EditUser({ navigation, route }): React.JSX.Element {
         if (name && email && mobile && address) {
             setLoader(true)
             let postedData = {
-                'id': data?.id, 'name': name, 'email': email, 'mobile': mobile, 'address': address, 'role': userRole, 'gst_no': gstNo
+                'id': data?.id, 'name': name, 'email': email, 'password': password, 'mobile': mobile, 'address': address, 'role': userRole, 'gst_no': gstNo
             };
 
             // POST Method
@@ -85,9 +86,11 @@ function EditUser({ navigation, route }): React.JSX.Element {
                             <InputComponent value={mobile} placeholder={'Mobile'} onChange={(value) => { setMobile(value) }} />
                             <InputComponent value={address} placeholder={'Address'} onChange={(value) => { setAddress(value) }} />
                             <InputComponent value={gstNo} placeholder={'GST'} onChange={(value) => { setGstNo(value) }} />
+                            <InputComponent placeholder={'Password'} onChange={(value) => { setPassword(value) }} />
+
                             {(error.length > 0) ?
                                 <View>
-                                    <Text style={[{ color: 'red', textAlign: 'center' }, h3, paddingBottom1]}>{error}</Text>
+                                    <Text style={[h3, paddingBottom1, { color: 'red', textAlign: 'center' }]}>{error}</Text>
                                 </View>
                                 : null
                             }

@@ -73,7 +73,7 @@ function EditQuality({ navigation, route }): React.JSX.Element {
 
                             {(error.length > 0) ?
                                 <View>
-                                    <Text style={[{ color: 'red', textAlign: 'center' }, h3, paddingBottom1]}>{error}</Text>
+                                    <Text style={[h3, paddingBottom1, { color: 'red', textAlign: 'center' }]}>{error}</Text>
                                 </View>
                                 : null
                             }

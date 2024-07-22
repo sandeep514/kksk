@@ -132,11 +132,16 @@ function ListRequestSample({ navigation }): React.JSX.Element {
                     </View>
 
                 </View>
-                <View style={{ position: 'absolute', bottom: 0, right: 0 }}>
-                    <Pressable onPress={() => { navigation.navigate('RequestSample') }} style={[{ borderRadius: 100, padding: 15 }, secondryBackgroundColor]}>
-                        <Text style={[{ color: primaryColor, }, mainHeader, {}]}><Icon name='add' color={primaryColor} /></Text>
-                    </Pressable>
-                </View>
+                {(userRole != 2) ?
+                    <View style={{ position: 'absolute', bottom: 0, right: 0 }}>
+                        <Pressable onPress={() => { navigation.navigate('RequestSample') }} style={[{ borderRadius: 100, padding: 15 }, secondryBackgroundColor]}>
+                            <Text style={[{ color: primaryColor, }, mainHeader, {}]}><Icon name='add' color={primaryColor} /></Text>
+                        </Pressable>
+                    </View>
+                    :
+                    null
+                }
+
 
             </View>
         </Layout>

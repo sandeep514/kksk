@@ -15,11 +15,11 @@ function Footer(): React.JSX.Element {
     return (
         <View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignContent: 'center' }}>
-                <Pressable onPress={() => { navigation.navigate('Dashboard') }} style={[{ borderRadius: 100 }, paddingHorizontal2,paddingVertical1]}>
+                <Pressable onPress={() => { navigation.navigate('Dashboard') }} style={[{ borderRadius: 100 }, paddingHorizontal2, paddingVertical1]}>
                     <Icon name="home" color={secondryColor} size={responsiveScreenHeight(3)} />
                     <Text style={[{ color: secondryColor }, h3]}>Home</Text>
                 </Pressable>
-                <Pressable onPress={() => { navigation.navigate('Dashboard') }} style={[{}, padding1]}>
+                {/* <Pressable onPress={() => { navigation.navigate('Dashboard') }} style={[{}, padding1]}>
                     <Icon name="home" size={responsiveScreenHeight(3)} />
                     <Text style={[{ color: secondryColor }, h3]}>Home</Text>
                 </Pressable>
@@ -30,9 +30,9 @@ function Footer(): React.JSX.Element {
                 <Pressable onPress={() => { navigation.navigate('Profile') }} style={[{}, padding1]}>
                     <Icon name="user" type='font-awesome' size={responsiveScreenHeight(3)} />
                     <Text style={[{ color: secondryColor }, h3]}>Profile</Text>
-                </Pressable>
-                <Pressable onPress={() => { AsyncStorage.clear(),navigation.navigate('Login') }} style={[{}, padding1]}>
-                    <Icon name="lock" size={responsiveScreenHeight(3)} color="red"/>
+                </Pressable> */}
+                <Pressable onPress={() => { AsyncStorage.clear(), navigation.navigate('Login') }} style={[{}, padding1]}>
+                    <Icon name="lock" size={responsiveScreenHeight(3)} color="red" />
                     <Text style={[{ color: secondryColor }, h3]}>Logout</Text>
                 </Pressable>
             </View >

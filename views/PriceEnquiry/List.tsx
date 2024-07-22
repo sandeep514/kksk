@@ -52,7 +52,7 @@ function ListPriceEnquiries({ navigation }): React.JSX.Element {
         return new Date(date).toLocaleString()
     }
     const Item = ({ item }: ItemProps) => (
-        <View style={[{borderBottomColor: '#ededed', borderBottomWidth: 2 },paddingBottom1]}>
+        <View style={[{ borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingBottom1]}>
             <Pressable onPress={() => { navigation.navigate('PurchaseOrderView', { details: item }) }} style={[styles.item, { borderRadius: 10 }, paddingHorizontal5, paddingVertical1]}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={[styles.title, h3, Medium, { color: '#000', marginTop: 2, fontWeight: 800 }]}>Enquiry No:</Text>
@@ -92,7 +92,7 @@ function ListPriceEnquiries({ navigation }): React.JSX.Element {
                     </View>
                     :
                     null
-            :
+                :
                 null
             }
             {(item?.status == 2) ?
@@ -134,11 +134,15 @@ function ListPriceEnquiries({ navigation }): React.JSX.Element {
                     </View>
 
                 </View>
-                <View style={{ position: 'absolute', bottom: 0, right: 0 }}>
-                    <Pressable onPress={() => { navigation.navigate('PriceEnquiry') }} style={[{ borderRadius: 100, padding: 15 }, secondryBackgroundColor]}>
-                        <Text style={[{ color: primaryColor, }, mainHeader, {}]}><Icon name='add' color={primaryColor} /></Text>
-                    </Pressable>
-                </View>
+                {(userRole != 2) ?
+                    <View style={{ position: 'absolute', bottom: 0, right: 0 }}>
+                        <Pressable onPress={() => { navigation.navigate('PriceEnquiry') }} style={[{ borderRadius: 100, padding: 15 }, secondryBackgroundColor]}>
+                            <Text style={[{ color: primaryColor, }, mainHeader, {}]}><Icon name='add' color={primaryColor} /></Text>
+                        </Pressable>
+                    </View>
+                    : null
+                }
+
 
             </View>
         </Layout>

@@ -70,14 +70,14 @@ function ListQuality({ navigation }): React.JSX.Element {
         })
     }
     const Item = ({ item }: ItemProps) => (
-        <View style={{ flexDirection: 'row' }}>
-            <View style={[{}, width80]}>
+        <View style={{ flexDirection: 'row', width: '100%' }}>
+            <View style={[{ width: '70%' }]}>
                 <Pressable onPress={() => { navigation.navigate('EditQuality', { details: item }) }} style={[styles.item, { borderRadius: 10, borderBottomColor: '#ededed', borderBottomWidth: 2 }, paddingHorizontal5, paddingVertical1]}>
                     <Text style={[styles.title, h3, SemiBold]}>{item.name}</Text>
                 </Pressable>
 
             </View>
-            <View style={[{ alignSelf: 'center' }, width10]}>
+            <View style={[{ alignSelf: 'center', width: '20%' }]}>
                 <Pressable onPress={() => {
                     setModalVisible(true)
                     setSelectedDeleteItem(item?.id)

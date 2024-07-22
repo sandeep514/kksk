@@ -27,6 +27,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
     const [PartyList, setPartiesList] = useState([]);
     const [riceWand, setRiceWand] = useState([]);
     const [Party, setParty] = useState('');
+    const [BuyerParty, setBuyerParty] = useState('');
 
     useEffect(() => {
         getRiceName();
@@ -74,28 +75,30 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
 
     const submitSampleFromAdmin = () => {
         setError('')
+        if (Party != '' && BuyerParty != '') {
+            if (data && Object.keys(data).length == 5) {
+                setLoader(true)
+                // POST Method
 
-        if (data && Object.keys(data).length == 5) {
-            setLoader(true)
-            // POST Method
-            data['additionalInfo'] = additionalInfo;
-            data['party'] = Party;
-            data['grade'] = formComponentCount;
+                data['additionalInfo'] = additionalInfo;
+                data['party'] = Party;
+                data['buyerParty'] = BuyerParty;
+                data['grade'] = formComponentCount;
 
-
-            post('add/sample/from/admin', (data)).then((res) => {
-                ShowToast('sample requested successfully')
-                navigation.navigate('ListPurchase');
-            }).catch((err) => {
-                setError('Something went wrong')
-            }).finally(() => {
-                setLoader(false)
-            })
+                post('add/sample/from/admin', (data)).then((res) => {
+                    ShowToast('sample requested successfully')
+                    navigation.navigate('ListSampleFromAdmin');
+                }).catch((err) => {
+                    setError('Something went wrong')
+                }).finally(() => {
+                    setLoader(false)
+                })
+            } else {
+                setError('required fields are missing')
+            }
         } else {
-            setError('required fields are missing')
+            setError('Please select party.')
         }
-
-
     }
     const deleteRow = (deletedMinid) => {
         let minidToRemove = deletedMinid;
@@ -125,10 +128,14 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
                         <View style={{ marginBottom: 0, }}>
                             <View style={[{}]}>
 
-                                <DropdownComponent defaultValue={Party?.name} items={PartyList} placeholder={'Party Name'} listname={'name'} selectedItem={(event, index) => {
+                                <DropdownComponent defaultValue={Party?.name} items={PartyList} placeholder={'Seller Party'} listname={'name'} selectedItem={(event, index) => {
                                     setParty(event)
-
                                 }} />
+
+                                <DropdownComponent defaultValue={BuyerParty?.name} items={PartyList} placeholder={'Buyer Party'} listname={'name'} selectedItem={(event, index) => {
+                                    setBuyerParty(event)
+                                }} />
+
                                 <DropdownComponent defaultValue={data?.riceType?.name} items={[{ 'id': 0, 'name': 'Select any' }, { 'id': 1, 'name': 'basmati' }, { 'id': 2, 'name': 'non-basmati' }]} placeholder={'Rice Type'} listname={'name'} selectedItem={(event, index) => {
                                     setData((previousState) => (
                                         { ...previousState, riceType: event, quantity: 0 }
@@ -177,7 +184,7 @@ function SampleFromAdmin({ navigation }): React.JSX.Element {
                         <InputComponent placeholder={'Remarks'} onChange={(value) => { setAdditionalInfo(value) }} />
                         {(error.length > 0) ?
                             <View>
-                                <Text style={[{ color: 'red', textAlign: 'center' }, h3, paddingBottom1]}>{error}</Text>
+                                <Text style={[h3, paddingBottom1, Bold, { color: 'red', textAlign: 'center' }]}>{error}</Text>
                             </View>
                             : null
                         }
